@@ -1,61 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SinalPro Brasil | Criar conta</title>
-  <meta name="description" content="Crie sua conta no SinalPro Brasil para continuar com o plano selecionado." />
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#07090d;--card:#0f1620;--line:rgba(255,255,255,.08);--text:#f5fbff;--muted:#a8b4c8;
-      --green:#2cff88;--blue:#00d5ff;--accent:linear-gradient(135deg,#2cff88 0%,#00d5ff 100%);
-    }
-    body{
-      min-height:100vh;font-family:Arial,sans-serif;color:var(--text);
-      background:radial-gradient(circle at 16% 14%, rgba(0,213,255,.14), transparent 28%),radial-gradient(circle at 82% 14%, rgba(44,255,136,.10), transparent 24%),linear-gradient(180deg,#07090d 0%,#05070b 100%);
-      display:flex;align-items:center;justify-content:center;padding:24px;
-    }
-    .card{
-      width:min(760px,100%);border-radius:30px;border:1px solid var(--line);
-      background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
-      box-shadow:0 28px 70px rgba(0,0,0,.32);padding:30px;position:relative;overflow:hidden;
-    }
-    .card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
-    h1{font-size:56px;line-height:.96;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:12px}
-    .sub{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:18px}
-    .notice{padding:16px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#dce8f7;line-height:1.7;margin-bottom:18px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .field{margin-bottom:14px}.full{grid-column:1 / -1}
-    label{display:block;font-size:14px;font-weight:800;color:#ebf7ff;margin-bottom:8px}
-    input{width:100%;min-height:58px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;padding:0 16px;outline:none;font-size:15px}
-    .help{display:block;margin-top:6px;font-size:12px;color:#97abc6}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-    .btn{min-height:56px;border:none;border-radius:999px;cursor:pointer;font-size:16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
-    .btn.primary{background:var(--accent);color:#071018}.btn.secondary{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);color:#eef6ff}
-    .msg{min-height:22px;margin-top:14px;font-size:14px;color:#bfffe0}
-    .back{display:inline-block;margin-top:10px;color:#dce8f7}
-    @media (max-width:760px){body{padding:16px}.card{padding:22px}h1{font-size:40px}.grid,.actions{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SinalPro Brasil | Criar conta</title>
+<meta name="description" content="Crie sua conta no SinalPro Brasil para continuar com acesso ao fluxo." />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090d;--line:rgba(255,255,255,.08);--text:#f5fbff;--muted:#a8b4c8;
+  --green:#26ff9a;--blue:#00d4ff;--accent:linear-gradient(135deg,#26ff9a 0%,#00d4ff 100%);
+}
+body{
+  min-height:100vh;font-family:Arial,sans-serif;color:var(--text);padding:24px;
+  background:
+    radial-gradient(circle at 14% 14%, rgba(0,212,255,.14), transparent 28%),
+    radial-gradient(circle at 86% 14%, rgba(38,255,154,.10), transparent 24%),
+    linear-gradient(180deg,#07090d 0%,#05070b 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.card{
+  width:min(760px,100%);border-radius:30px;border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  box-shadow:0 28px 70px rgba(0,0,0,.34);padding:30px;position:relative;overflow:hidden;
+}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
+h1{font-size:56px;line-height:.96;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:12px}
+.sub{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:18px}
+.notice{padding:16px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#dce8f7;line-height:1.7;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:14px}
+.full{grid-column:1 / -1}
+label{display:block;font-size:14px;font-weight:800;color:#ebf7ff;margin-bottom:8px}
+input{
+  width:100%;min-height:58px;border-radius:18px;border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);color:#fff;padding:0 16px;outline:none;font-size:15px;
+}
+.help{display:block;margin-top:6px;font-size:12px;color:#97abc6;line-height:1.5}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.btn{
+  min-height:56px;border:none;border-radius:999px;cursor:pointer;font-size:16px;font-weight:800;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.btn.primary{background:var(--accent);color:#071018}
+.btn.secondary{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);color:#eef6ff}
+.msg{min-height:22px;margin-top:14px;font-size:14px;color:#bfffe0}
+.back{display:inline-block;margin-top:10px;color:#dce8f7}
+@media (max-width:760px){body{padding:16px}.card{padding:22px}h1{font-size:40px}.grid,.actions{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
   <div class="card">
     <h1>Criar conta</h1>
-    <div class="sub">Complete seu cadastro para continuar com o plano selecionado no SinalPro Brasil.</div>
-    <div class="notice">
-      <strong>Plano selecionado:</strong> <span id="selectedPlanText">Nenhum</span><br>
-      <strong>Após criar sua conta:</strong> você volta para o site do Brasil e o pagamento abre automaticamente.
-    </div>
-
+    <div class="sub">Complete seu cadastro para continuar no SinalPro Brasil e voltar para o pagamento automaticamente.</div>
+    <div class="notice"><strong>Importante:</strong> depois do cadastro você volta para o site do Brasil e o pagamento abre automaticamente.</div>
     <form id="registerForm" novalidate>
       <div class="grid">
         <div class="field full">
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="Digite seu email" />
+          <input id="email" name="email" type="email" placeholder="Digite seu email" />
         </div>
         <div class="field">
           <label for="password">Senha</label>
-          <input id="password" type="password" placeholder="Crie sua senha" />
+          <input id="password" name="password" type="password" placeholder="Crie sua senha" />
         </div>
         <div class="field">
           <label for="confirmPassword">Confirmar senha</label>
@@ -63,84 +70,74 @@
         </div>
         <div class="field">
           <label for="tradingview">TradingView ID</label>
-          <input id="tradingview" type="text" placeholder="Digite seu TradingView ID" />
-          <span class="help">Obrigatório.</span>
+          <input id="tradingview" name="tradingview" type="text" placeholder="Digite seu TradingView ID" />
+          <span class="help">Obrigatório. Você precisa informar seu TradingView ID.</span>
         </div>
         <div class="field">
-          <label for="telegram">Telegram</label>
-          <input id="telegram" type="text" placeholder="Opcional" />
-          <span class="help">Opcional.</span>
+          <label for="telegram">Telegram ID</label>
+          <input id="telegram" name="telegram" type="text" placeholder="Opcional" />
+          <span class="help">Não obrigatório. Pode deixar vazio se não usar Telegram.</span>
         </div>
       </div>
       <div class="actions">
         <button class="btn primary" type="submit">Criar conta</button>
-        <a class="btn secondary" id="backBtn" href="https://lsgsg0908-png.github.io/tcps-brazil/">Voltar</a>
+        <a class="btn secondary" href="https://lsgsg0908-png.github.io/tcps-brazil/">Voltar</a>
       </div>
       <div class="msg" id="registerMsg"></div>
     </form>
     <a class="back" href="https://lsgsg0908-png.github.io/tcps-brazil/">← Voltar para o início</a>
   </div>
 
-  <script>
-    const SERVER_BASE = "http://34.50.56.156:5000";
-    const BRAZIL_SITE = "https://lsgsg0908-png.github.io/tcps-brazil/";
-    const USER_KEY = "sinalpro_br_user_email";
-    const params = new URLSearchParams(window.location.search);
-    const plan = params.get('plan') || '';
-    const billing = params.get('billing') || '';
-    const planMap = {
-      starter:'Starter — 14 USDT',
-      basic:'Basic — 29 USDT',
-      pro:'Pro — 59 USDT',
-      elite:'Elite — 119 USDT',
-      lifetime:'Lifetime — 1599 USDT'
-    };
-    document.getElementById('selectedPlanText').textContent = planMap[plan] || 'Nenhum';
+<script>
+const SERVER_BASE="http://34.50.56.156:5000";
+const BRAZIL_SITE="https://lsgsg0908-png.github.io/tcps-brazil/";
+const USER_KEY="sinalpro_br_user_email";
+const params=new URLSearchParams(window.location.search);
+const plan=params.get('plan')||'starter';
+const billing=params.get('billing')||'one-time';
+const registerForm=document.getElementById('registerForm');
+const registerMsg=document.getElementById('registerMsg');
 
-    const registerForm = document.getElementById('registerForm');
-    const registerMsg = document.getElementById('registerMsg');
+registerForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const email=document.getElementById('email').value.trim();
+  const password=document.getElementById('password').value.trim();
+  const confirmPassword=document.getElementById('confirmPassword').value.trim();
+  const tradingViewId=document.getElementById('tradingview').value.trim();
+  const telegram=document.getElementById('telegram').value.trim();
 
-    registerForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const confirmPassword = document.getElementById('confirmPassword').value.trim();
-      const tradingViewId = document.getElementById('tradingview').value.trim();
-      const telegram = document.getElementById('telegram').value.trim();
+  if(!email || !password || !confirmPassword || !tradingViewId){
+    registerMsg.textContent='Preencha todos os campos obrigatórios.';
+    return;
+  }
+  if(password !== confirmPassword){
+    registerMsg.textContent='As senhas não coincidem.';
+    return;
+  }
 
-      if(!email || !password || !confirmPassword || !tradingViewId){
-        registerMsg.textContent = 'Preencha todos os campos obrigatórios.';
-        return;
-      }
-      if(password !== confirmPassword){
-        registerMsg.textContent = 'As senhas não coincidem.';
-        return;
-      }
-
-      registerMsg.textContent = 'Criando conta...';
-      try{
-        const response = await fetch(`${SERVER_BASE}/register`, {
-          method:'POST',
-          headers:{ 'Content-Type':'application/json' },
-          body: JSON.stringify({ email, password, tradingViewId, telegram })
-        });
-        const data = await response.json().catch(() => ({}));
-        if(!response.ok || !data.success){
-          throw new Error(data.message || 'Falha no cadastro.');
-        }
-
-        localStorage.setItem(USER_KEY, email);
-        const redirect = new URL(BRAZIL_SITE);
-        redirect.searchParams.set('bruser', email);
-        if(plan){ redirect.searchParams.set('plan', plan); }
-        if(billing){ redirect.searchParams.set('billing', billing); }
-        redirect.searchParams.set('openPayment', '1');
-        registerMsg.textContent = 'Conta criada. Redirecionando...';
-        setTimeout(() => { window.location.href = redirect.toString(); }, 700);
-      }catch(error){
-        registerMsg.textContent = error.message || 'Cadastro falhou.';
-      }
+  registerMsg.textContent='Criando conta...';
+  try{
+    const response = await fetch(`${SERVER_BASE}/register`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email, password, tradingViewId, telegram })
     });
-  </script>
+    const data = await response.json().catch(() => ({}));
+    if(!response.ok || !data.success){
+      throw new Error(data.message || 'Falha no cadastro.');
+    }
+    localStorage.setItem(USER_KEY, email);
+    const redirect = new URL(BRAZIL_SITE);
+    redirect.searchParams.set('bruser', email);
+    redirect.searchParams.set('plan', plan);
+    redirect.searchParams.set('billing', billing);
+    redirect.searchParams.set('openPayment', '1');
+    registerMsg.textContent='Conta criada. Redirecionando...';
+    setTimeout(() => { window.location.href = redirect.toString(); }, 700);
+  } catch(error) {
+    registerMsg.textContent = error.message || 'Cadastro falhou.';
+  }
+});
+</script>
 </body>
 </html>
