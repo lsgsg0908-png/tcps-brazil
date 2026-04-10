@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCPS Brasil | Sinais de Trading</title>
+  <meta name="description" content="Sinais visuais, entrada limpa e acesso rápido ao sistema TCPS." />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#05060a;
+      --panel:#0d1018;
+      --panel-2:#121622;
+      --text:#f7f8fb;
+      --muted:#b8bfd0;
+      --line:rgba(255,255,255,.08);
+      --green:#3dff8f;
+      --red:#ff4d6d;
+      --yellow:#ffd54a;
+      --accent:linear-gradient(135deg,#ffe44d 0%, #ff8a00 42%, #ff305f 100%);
+      --accent-2:linear-gradient(135deg,#3dff8f 0%, #00d4ff 100%);
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,138,0,.16), transparent 28%),
+        radial-gradient(circle at 80% 16%, rgba(255,48,95,.20), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(61,255,143,.12), transparent 30%),
+        linear-gradient(180deg,#06070b 0%,#030407 100%);
+      color:var(--text);
+      overflow-x:hidden;
+      line-height:1.5;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .topbar{
+      position:sticky;top:0;z-index:999;
+      backdrop-filter:blur(14px);
+      background:rgba(5,6,10,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;flex-direction:column;gap:2px}
+    .brand strong{font-size:18px;letter-spacing:.4px}
+    .brand span{font-size:12px;color:var(--muted)}
+    .nav{display:flex;align-items:center;gap:22px}
+    .nav a{font-size:14px;color:#d8deea}
+    .nav a:hover{color:#fff}
+    .member-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .member-label,.ghost-btn,.solid-btn,.plan-btn,.copy-btn,.modal-btn,.hero-cta{
+      min-height:50px;padding:0 20px;border-radius:999px;border:none;cursor:pointer;
+      display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;
+      transition:.18s ease transform,.18s ease opacity,.18s ease box-shadow;
+    }
+    .member-label{
+      border:1px solid var(--line);background:rgba(255,255,255,.03);color:#e6ebf5;cursor:default
+    }
+    .ghost-btn{
+      color:#eff3fb;background:rgba(255,255,255,.04);border:1px solid var(--line)
+    }
+    .solid-btn,.plan-btn,.copy-btn,.modal-btn.primary,.hero-cta{
+      color:#0b0c11;background:var(--accent);box-shadow:0 18px 38px rgba(255,92,0,.18)
+    }
+    .ghost-btn:hover,.solid-btn:hover,.plan-btn:hover,.copy-btn:hover,.modal-btn:hover,.hero-cta:hover{transform:translateY(-2px);opacity:.98}
+    .is-hidden{display:none!important}
+    section{padding:88px 0}
+    .hero{padding:54px 0 48px}
+    .hero-shell{
+      position:relative;border:1px solid var(--line);border-radius:34px;overflow:hidden;
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+      box-shadow:0 28px 80px rgba(0,0,0,.34)
+    }
+    .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:28px;padding:36px}
+    .hero-copy{position:relative;z-index:2}
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
+      background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:12px;font-weight:800;color:#ffe8b0;
+      letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px
+    }
+    .kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--yellow);box-shadow:0 0 12px rgba(255,213,74,.9)}
+    .hero h1{font-size:72px;line-height:.95;letter-spacing:-2.8px;max-width:760px;margin-bottom:16px;text-transform:uppercase}
+    .hero h1 span{display:block;background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero-sub{font-size:20px;color:#eef2fa;max-width:620px;font-weight:700;margin-bottom:10px}
+    .hero p{font-size:17px;color:var(--muted);max-width:620px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 18px}
+    .hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+    .metric{
+      border:1px solid var(--line);border-radius:22px;padding:18px;background:rgba(255,255,255,.035)
+    }
+    .metric small{display:block;font-size:12px;color:#9da7bc;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+    .metric strong{display:block;font-size:28px;line-height:1;font-weight:900}
+    .metric span{display:block;font-size:13px;color:#d1d7e5;margin-top:6px}
+    .hero-visual{
+      position:relative;min-height:560px;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.06);
+      background:
+        radial-gradient(circle at 22% 14%, rgba(61,255,143,.22), transparent 28%),
+        radial-gradient(circle at 82% 18%, rgba(255,48,95,.22), transparent 26%),
+        linear-gradient(180deg,#0d111a 0%,#090b11 100%)
+    }
+    .hero-visual::before{
+      content:"";position:absolute;inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size:42px 42px;opacity:.14
+    }
+    .scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);top:16%;box-shadow:0 0 22px rgba(255,255,255,.7);animation:scan 6s linear infinite}
+    @keyframes scan{0%{top:8%}100%{top:88%}}
+    .chart{position:absolute;inset:0;padding:28px}
+    .candles{position:absolute;left:32px;right:32px;bottom:82px;height:62%}
+    .candle{position:absolute;bottom:0;width:18px;border-radius:6px 6px 4px 4px}
+    .candle::before{content:"";position:absolute;left:50%;transform:translateX(-50%);width:3px;border-radius:2px;top:-26px;bottom:-26px;background:currentColor;opacity:.9}
+    .green{background:var(--green);color:var(--green);box-shadow:0 0 20px rgba(61,255,143,.25)}
+    .red{background:var(--red);color:var(--red);box-shadow:0 0 20px rgba(255,77,109,.2)}
+    .line-path{position:absolute;left:28px;right:28px;top:26%;height:2px;background:linear-gradient(90deg,rgba(61,255,143,0) 0%, rgba(61,255,143,.95) 20%, rgba(255,228,77,.95) 54%, rgba(255,48,95,.95) 100%);transform:rotate(-8deg);transform-origin:left center;box-shadow:0 0 22px rgba(255,228,77,.35)}
+    .line-path.two{top:46%;left:90px;right:80px;transform:rotate(12deg);background:linear-gradient(90deg,rgba(255,48,95,0),rgba(255,48,95,.95),rgba(61,255,143,.95))}
+    .floating-card{
+      position:absolute;border:1px solid rgba(255,255,255,.08);background:rgba(8,10,15,.84);
+      backdrop-filter:blur(10px);border-radius:22px;padding:16px 18px;box-shadow:0 18px 45px rgba(0,0,0,.28)
+    }
+    .floating-card strong{display:block;font-size:28px;line-height:1;font-weight:900}
+    .floating-card span{display:block;font-size:12px;color:#d7dde8;text-transform:uppercase;letter-spacing:.8px;margin-top:7px}
+    .card-1{top:28px;right:22px}
+    .card-2{bottom:24px;left:20px}
+    .card-3{bottom:40px;right:24px}
+    .hero-tags{position:absolute;left:22px;top:24px;display:flex;gap:10px;flex-wrap:wrap;max-width:65%}
+    .hero-tag{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:800;color:#f3f6fd;text-transform:uppercase}
+
+    .video-section .section-title,.plans .section-title,.cta-box h2{font-size:52px;line-height:.96;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:14px}
+    .section-top{max-width:760px;margin:0 auto 34px;text-align:center}
+    .section-top p{font-size:17px;color:var(--muted)}
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .video-card{
+      border:1px solid var(--line);border-radius:28px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.018));
+      box-shadow:0 22px 50px rgba(0,0,0,.22)
+    }
+    .video-thumb{aspect-ratio:9/16;position:relative;overflow:hidden;background:linear-gradient(180deg,#0f131d 0%,#090b12 100%)}
+    .video-thumb::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.10), transparent 24%),
+        linear-gradient(180deg, rgba(255,77,109,.26), rgba(0,0,0,0) 34%),
+        linear-gradient(135deg, rgba(61,255,143,.20), rgba(255,228,77,.14) 52%, rgba(255,48,95,.22));
+    }
+    .bars{position:absolute;left:18px;right:18px;bottom:18px;height:56%;display:flex;align-items:flex-end;gap:7px}
+    .bars i{flex:1;border-radius:10px 10px 4px 4px;background:var(--accent);opacity:.9;box-shadow:0 0 18px rgba(255,138,0,.18)}
+    .play{position:absolute;inset:auto auto 18px 18px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16)}
+    .play::before{content:"";margin-left:4px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}
+    .thumb-label{position:absolute;left:18px;top:18px;padding:10px 12px;border-radius:999px;background:#0c0f16;border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}
+    .thumb-big{position:absolute;left:18px;right:18px;top:82px;font-size:32px;line-height:.92;font-weight:900;letter-spacing:-1px;text-transform:uppercase}
+    .video-copy{padding:16px 18px 18px}
+    .video-copy strong{display:block;font-size:20px;line-height:1.06;margin-bottom:8px;text-transform:uppercase}
+    .video-copy p{color:var(--muted);font-size:14px}
+
+    .stats-band{padding-top:18px}
+    .stats-shell{
+      border:1px solid var(--line);border-radius:30px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+      display:grid;grid-template-columns:1.1fr .9fr .9fr .9fr;gap:16px;align-items:stretch
+    }
+    .stats-copy{padding:12px 10px}
+    .stats-copy h2{font-size:44px;line-height:.95;text-transform:uppercase;letter-spacing:-1.4px;margin-bottom:10px}
+    .stats-copy p{color:var(--muted);font-size:16px;max-width:440px}
+    .stat-box{
+      border:1px solid var(--line);border-radius:24px;background:#0b0f17;padding:18px;display:flex;flex-direction:column;justify-content:space-between
+    }
+    .stat-box small{font-size:12px;color:#a3aec4;text-transform:uppercase;letter-spacing:.8px}
+    .stat-box strong{font-size:42px;line-height:1;font-weight:900;margin:12px 0 8px}
+    .stat-box span{color:#d5dceb;font-size:13px}
+
+    .plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .plan-card{
+      position:relative;border:1px solid var(--line);border-radius:30px;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+      box-shadow:0 22px 50px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow:hidden
+    }
+    .plan-card.featured{border-color:rgba(255,228,77,.30);transform:translateY(-6px);box-shadow:0 28px 60px rgba(255,138,0,.22)}
+    .plan-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
+    .plan-badge{display:inline-flex;width:max-content;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);font-size:11px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;margin-bottom:14px}
+    .plan-name{font-size:30px;line-height:1;text-transform:uppercase;font-weight:900;margin-bottom:10px}
+    .plan-desc{font-size:14px;color:var(--muted);min-height:64px;margin-bottom:12px}
+    .price-box{border:1px solid rgba(255,255,255,.08);background:#0a0d14;border-radius:22px;padding:16px 16px 14px;margin-bottom:12px}
+    .price-box small{display:block;font-size:12px;color:#a4aec4;text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px}
+    .price-line{display:flex;align-items:flex-end;gap:7px}
+    .price-line strong{font-size:52px;line-height:.92;font-weight:900}
+    .price-line span{font-size:21px;font-weight:800;padding-bottom:6px}
+    .sub-price{font-size:13px;color:#cdd5e5;margin-top:6px}
+    .save{font-size:12px;color:#ffe08d;margin-top:8px;font-weight:800;text-transform:uppercase}
+    .features{list-style:none;display:grid;gap:10px;margin:14px 0 18px;min-height:164px}
+    .features li{padding-left:18px;position:relative;color:#edf2fb;font-size:14px}
+    .features li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(61,255,143,.6)}
+    .bonus{border:1px solid rgba(255,228,77,.16);background:rgba(255,228,77,.07);color:#ffe8a6;border-radius:16px;padding:12px;text-align:center;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+    .plan-stack{display:grid;gap:10px;margin-top:auto}
+    .plan-btn.secondary{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#eff4fc;box-shadow:none}
+
+    .rule-box{
+      margin-top:24px;border:1px solid rgba(255,77,109,.2);background:rgba(255,77,109,.08);border-radius:22px;padding:18px 20px;text-align:center;color:#ffdbe2;font-size:14px
+    }
+
+    .cta-box{
+      border:1px solid var(--line);border-radius:34px;padding:44px 28px;text-align:center;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.018));box-shadow:0 26px 70px rgba(0,0,0,.24)
+    }
+    .cta-box p{max-width:760px;margin:0 auto 22px;color:var(--muted);font-size:17px}
+    .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    .footer{padding:36px 0 50px;border-top:1px solid var(--line)}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:#97a2b9;font-size:13px}
+
+    .payment-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,4,7,.82);backdrop-filter:blur(10px);z-index:3000}
+    .payment-modal.active{display:flex}
+    .payment-card{width:100%;max-width:660px;border-radius:34px;border:1px solid var(--line);background:linear-gradient(180deg,#0c0f16,#07090e);padding:28px;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.42)}
+    .payment-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
+    .close-modal{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.08);color:#fff;font-size:24px}
+    .payment-card h3{font-size:42px;line-height:.96;text-transform:uppercase;letter-spacing:-1.4px;margin-bottom:10px}
+    .payment-card p{color:var(--muted);font-size:15px;margin-bottom:18px;padding-right:48px}
+    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+    .summary-box{border:1px solid var(--line);border-radius:20px;background:#0a0d14;padding:14px}
+    .summary-box small{display:block;font-size:11px;color:#9ea8be;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+    .summary-box strong{display:block;font-size:22px;line-height:1.08;font-weight:900}
+    .wallet-box,.field-box{border:1px solid var(--line);border-radius:24px;background:#0a0d14;padding:18px;margin-bottom:14px}
+    .wallet-box small,.field-box label{display:block;font-size:12px;color:#ffe8b0;text-transform:uppercase;letter-spacing:.8px;font-weight:800;margin-bottom:10px}
+    .wallet-address{border:1px dashed rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:18px;padding:14px;word-break:break-all;font-weight:700;color:#fff;margin-bottom:12px}
+    .modal-note{border:1px solid rgba(255,228,77,.16);background:rgba(255,228,77,.08);border-radius:16px;padding:12px;color:#fff1bf;font-size:14px;line-height:1.55;margin-top:12px}
+    .field-box input{width:100%;min-height:56px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#fff;padding:0 14px;outline:none;font-size:15px}
+    .modal-msg{min-height:20px;margin-top:12px;text-align:center;color:#9effc7;font-size:14px}
+    .modal-foot{margin-top:14px;color:#96a2b8;font-size:13px;line-height:1.6}
+
+    @media (max-width:1120px){
+      .hero-grid,.stats-shell,.plans-grid{grid-template-columns:1fr 1fr}
+      .video-grid{grid-template-columns:1fr 1fr}
+      .summary{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:760px){
+      .nav{display:none}
+      .hero-grid,.video-grid,.stats-shell,.plans-grid,.summary,.hero-metrics{grid-template-columns:1fr}
+      .hero-grid{padding:22px}
+      .hero h1{font-size:46px;letter-spacing:-1.7px}
+      .video-section .section-title,.plans .section-title,.cta-box h2,.stats-copy h2{font-size:34px}
+      .hero-visual{min-height:430px}
+      .payment-card{padding:22px}
+      .payment-card h3{font-size:32px}
+      section{padding:70px 0}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <strong>TCPS BRASIL</strong>
+        <span>Sinais visuais • execução limpa • acesso rápido</span>
+      </div>
+      <nav class="nav">
+        <a href="#videos">Vídeos</a>
+        <a href="#results">Números</a>
+        <a href="#plans">Planos</a>
+        <a href="#buy">Comprar</a>
+      </nav>
+      <div class="member-actions">
+        <div class="member-label" id="memberLabel">Modo Visitante</div>
+        <button class="ghost-btn is-hidden" id="logoutBtn" type="button">Sair</button>
+        <button class="ghost-btn" id="loginBtn" type="button">Login</button>
+        <button class="solid-btn" id="registerBtn" type="button">Cadastrar</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-shell">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="kicker">YouTube Shorts → Landing → Compra</div>
+            <h1>Entradas limpas.<span>menos ruído.</span>mais ação.</h1>
+            <div class="hero-sub">Página feita para clicar, entrar e confirmar pagamento rápido.</div>
+            <p>Sem texto longo. Sem bloco chato. Aqui o foco é mostrar oportunidade, impacto visual e acesso imediato ao sistema.</p>
+            <div class="hero-actions">
+              <a class="hero-cta" href="#plans">QUERO ACESSO AGORA</a>
+              <button class="ghost-btn" id="heroLoginBtn" type="button">JÁ SOU MEMBRO</button>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric"><small>Visual forte</small><strong>10–30s</strong><span>estrutura ideal para Shorts</span></div>
+              <div class="metric"><small>Pagamento</small><strong>USDT</strong><span>TRC20 pronto para confirmação</span></div>
+              <div class="metric"><small>Fluxo</small><strong>RÁPIDO</strong><span>cadastro → pagamento → TXID</span></div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-tags">
+              <div class="hero-tag">Entry</div>
+              <div class="hero-tag">Target</div>
+              <div class="hero-tag">Stop</div>
+            </div>
+            <div class="scanline"></div>
+            <div class="chart">
+              <div class="line-path"></div>
+              <div class="line-path two"></div>
+              <div class="candles">
+                <div class="candle red" style="left:2%;height:22%"></div>
+                <div class="candle green" style="left:10%;height:32%"></div>
+                <div class="candle green" style="left:18%;height:48%"></div>
+                <div class="candle red" style="left:26%;height:28%"></div>
+                <div class="candle green" style="left:34%;height:58%"></div>
+                <div class="candle green" style="left:42%;height:64%"></div>
+                <div class="candle red" style="left:50%;height:40%"></div>
+                <div class="candle green" style="left:58%;height:74%"></div>
+                <div class="candle green" style="left:66%;height:78%"></div>
+                <div class="candle red" style="left:74%;height:46%"></div>
+                <div class="candle green" style="left:82%;height:88%"></div>
+              </div>
+            </div>
+            <div class="floating-card card-1"><strong>+389</strong><span>USDT / plano anual</span></div>
+            <div class="floating-card card-2"><strong>ENTRY</strong><span>ponto visual mais limpo</span></div>
+            <div class="floating-card card-3"><strong>TRC20</strong><span>confirmação por TXID</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-section" id="videos">
+    <div class="container">
+      <div class="section-top">
+        <h2 class="section-title">Vídeos curtos. impacto rápido.</h2>
+        <p>O estilo certo aqui é mostrar movimento, entrada, alvo e resultado. Pouca fala. Muito contraste. Muito ritmo.</p>
+      </div>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="thumb-label">SHORT 01</div>
+            <div class="thumb-big">WAIT<br>THIS IS<br>THE ENTRY</div>
+            <div class="play"></div>
+            <div class="bars"><i style="height:24%"></i><i style="height:38%"></i><i style="height:18%"></i><i style="height:64%"></i><i style="height:52%"></i><i style="height:78%"></i><i style="height:88%"></i></div>
+          </div>
+          <div class="video-copy">
+            <strong>Entrada limpa</strong>
+            <p>Texto curto, fundo forte e foco no ponto de entrada.</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="thumb-label">SHORT 02</div>
+            <div class="thumb-big">TRAP<br>BREAK<br>REVERSE</div>
+            <div class="play"></div>
+            <div class="bars"><i style="height:78%"></i><i style="height:68%"></i><i style="height:40%"></i><i style="height:24%"></i><i style="height:18%"></i><i style="height:58%"></i><i style="height:84%"></i></div>
+          </div>
+          <div class="video-copy">
+            <strong>Liquidez visual</strong>
+            <p>Mostrar armadilha, reversão e alvo em poucos segundos.</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <div class="thumb-label">SHORT 03</div>
+            <div class="thumb-big">ENTRY<br>TARGET<br>DONE</div>
+            <div class="play"></div>
+            <div class="bars"><i style="height:22%"></i><i style="height:34%"></i><i style="height:52%"></i><i style="height:68%"></i><i style="height:82%"></i><i style="height:74%"></i><i style="height:90%"></i></div>
+          </div>
+          <div class="video-copy">
+            <strong>Profit moment</strong>
+            <p>Fechar com resultado visual é o que mais prende clique.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-band" id="results">
+    <div class="container">
+      <div class="stats-shell">
+        <div class="stats-copy">
+          <h2>Números grandes vendem mais rápido.</h2>
+          <p>No Brasil, a página precisa mostrar força logo de cara. Menos explicação, mais percepção de oportunidade.</p>
+        </div>
+        <div class="stat-box">
+          <small>Foco principal</small>
+          <strong>PRO</strong>
+          <span>plano central para conversão rápida</span>
+        </div>
+        <div class="stat-box">
+          <small>Fluxo visual</small>
+          <strong>SHORTS</strong>
+          <span>vídeo curto puxando o tráfego</span>
+        </div>
+        <div class="stat-box">
+          <small>Pagamento</small>
+          <strong>TXID</strong>
+          <span>confirmação manual após envio</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans" id="plans">
+    <div class="container">
+      <div class="section-top">
+        <h2 class="section-title">Escolha e compre.</h2>
+        <p>Mesma lógica do sistema atual: cadastro, plano, pagamento USDT TRC20 e envio do TXID para confirmação.</p>
+      </div>
+      <div class="plans-grid">
+        <div class="plan-card">
+          <div class="plan-badge">Starter</div>
+          <div class="plan-name">Basic</div>
+          <div class="plan-desc">Entrada mais leve para quem quer começar no sistema sem pular direto para o núcleo principal.</div>
+          <div class="price-box">
+            <small>Mensal</small>
+            <div class="price-line"><strong>29</strong><span>USDT</span></div>
+            <div class="sub-price">por mês</div>
+          </div>
+          <div class="price-box">
+            <small>Anual</small>
+            <div class="price-line"><strong>191</strong><span>USDT</span></div>
+            <div class="sub-price">12 meses em um pagamento</div>
+            <div class="save">45% off no anual</div>
+          </div>
+          <ul class="features">
+            <li>Base do fluxo TCPS</li>
+            <li>Lógica visual mais simples</li>
+            <li>Entrada inicial no sistema</li>
+            <li>E-book TCPS-A no anual</li>
+          </ul>
+          <div class="bonus">TCPS-A no anual</div>
+          <div class="plan-stack">
+            <button class="plan-btn" type="button" data-plan="basic" data-billing="monthly">BASIC MENSAL</button>
+            <button class="plan-btn secondary" type="button" data-plan="basic" data-billing="yearly">BASIC ANUAL</button>
+          </div>
+        </div>
+
+        <div class="plan-card featured">
+          <div class="plan-badge">Mais vendido</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-desc">Este é o produto principal. Visualmente é o plano que precisa ser empurrado com mais força.</div>
+          <div class="price-box">
+            <small>Mensal</small>
+            <div class="price-line"><strong>59</strong><span>USDT</span></div>
+            <div class="sub-price">por mês</div>
+          </div>
+          <div class="price-box">
+            <small>Anual</small>
+            <div class="price-line"><strong>389</strong><span>USDT</span></div>
+            <div class="sub-price">12 meses em um pagamento</div>
+            <div class="save">45% off no anual</div>
+          </div>
+          <ul class="features">
+            <li>Tudo do Basic</li>
+            <li>Fluxo principal de execução</li>
+            <li>Plano central da página</li>
+            <li>TCPS-A + TCPS-B no anual</li>
+          </ul>
+          <div class="bonus">TCPS-A + TCPS-B no anual</div>
+          <div class="plan-stack">
+            <button class="plan-btn" type="button" data-plan="pro" data-billing="monthly">PRO MENSAL</button>
+            <button class="plan-btn secondary" type="button" data-plan="pro" data-billing="yearly">PRO ANUAL</button>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-badge">Advanced</div>
+          <div class="plan-name">Elite</div>
+          <div class="plan-desc">Camada mais alta para quem quer mais profundidade no fluxo e não quer ficar no plano principal.</div>
+          <div class="price-box">
+            <small>Mensal</small>
+            <div class="price-line"><strong>119</strong><span>USDT</span></div>
+            <div class="sub-price">por mês</div>
+          </div>
+          <div class="price-box">
+            <small>Anual</small>
+            <div class="price-line"><strong>785</strong><span>USDT</span></div>
+            <div class="sub-price">12 meses em um pagamento</div>
+            <div class="save">45% off no anual</div>
+          </div>
+          <ul class="features">
+            <li>Tudo do Pro</li>
+            <li>Fluxo avançado</li>
+            <li>Camada mais forte de acesso</li>
+            <li>TCPS-A + TCPS-B no anual</li>
+          </ul>
+          <div class="bonus">TCPS-A + TCPS-B no anual</div>
+          <div class="plan-stack">
+            <button class="plan-btn" type="button" data-plan="elite" data-billing="monthly">ELITE MENSAL</button>
+            <button class="plan-btn secondary" type="button" data-plan="elite" data-billing="yearly">ELITE ANUAL</button>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-badge">One time</div>
+          <div class="plan-name">Lifetime</div>
+          <div class="plan-desc">Pacote máximo para quem quer entrar de uma vez e não renovar mensalmente.</div>
+          <div class="price-box" style="min-height:182px;display:flex;flex-direction:column;justify-content:center">
+            <small>Lifetime</small>
+            <div class="price-line"><strong>1599</strong><span>USDT</span></div>
+            <div class="sub-price">pagamento único</div>
+            <div class="save">pacote mais completo</div>
+          </div>
+          <ul class="features">
+            <li>Tudo do Elite</li>
+            <li>Atualizações futuras incluídas</li>
+            <li>Sem renovação mensal</li>
+            <li>Todos os livros incluídos</li>
+          </ul>
+          <div class="bonus">Todos os bônus incluídos</div>
+          <div class="plan-stack">
+            <button class="plan-btn" type="button" data-plan="lifetime" data-billing="lifetime">LIFETIME</button>
+          </div>
+        </div>
+      </div>
+      <div class="rule-box">Envie apenas o valor exato do plano escolhido. Valor errado, rede errada ou plano errado pode ser rejeitado na confirmação manual.</div>
+    </div>
+  </section>
+
+  <section id="buy">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Não perca o próximo movimento.</h2>
+        <p>Página nova, estrutura agressiva e o mesmo fluxo de cadastro + pagamento do sistema atual. Tudo separado do site antigo para você testar sem mexer no que já está rodando.</p>
+        <div class="cta-actions">
+          <a class="hero-cta" href="#plans">COMEÇAR AGORA</a>
+          <button class="ghost-btn" type="button" id="ctaRegisterBtn">CRIAR CONTA</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>TCPS Brasil Landing</div>
+      <div>This is not financial advice. All content is for educational purposes only.</div>
+    </div>
+  </footer>
+
+  <div class="payment-modal" id="paymentModal">
+    <div class="payment-card">
+      <button class="close-modal" id="closePaymentModal" type="button">×</button>
+      <h3>Confirmar pagamento</h3>
+      <p>Usuários logados podem conferir o plano escolhido, copiar a carteira e enviar o TXID para validação.</p>
+      <div class="summary">
+        <div class="summary-box"><small>Plano</small><strong id="modalPlan">Pro</strong></div>
+        <div class="summary-box"><small>Cobrança</small><strong id="modalBilling">Yearly</strong></div>
+        <div class="summary-box"><small>Valor</small><strong id="modalAmount">389</strong></div>
+        <div class="summary-box"><small>Bônus</small><strong id="modalBonus">TCPS-A + TCPS-B</strong></div>
+      </div>
+      <div class="wallet-box">
+        <small>Carteira USDT TRC20</small>
+        <div class="wallet-address" id="walletAddress">TJn4TwxxfLPhziLB6xkavnjDvaiDUNCfyJ</div>
+        <button class="copy-btn" id="copyWalletBtn" type="button">COPIAR CARTEIRA</button>
+        <div class="modal-note">Envie o valor exato. Rede errada, valor errado ou plano errado pode causar rejeição na verificação manual.</div>
+      </div>
+      <div class="field-box">
+        <label for="txidInput">TXID</label>
+        <input id="txidInput" type="text" placeholder="Cole seu TXID aqui" />
+      </div>
+      <button class="modal-btn primary" style="width:100%" id="confirmPaymentBtn" type="button">ENVIAR CONFIRMAÇÃO</button>
+      <div class="modal-msg" id="paymentMsg"></div>
+      <div class="modal-foot">A aprovação final acontece após a conferência do pagamento. Os bônus são liberados usando o email cadastrado.</div>
+    </div>
+  </div>
+
+  <script>
+    const SERVER_BASE = "http://34.50.56.156:5000";
+    const WALLET_ADDRESS = "TJn4TwxxfLPhziLB6xkavnjDvaiDUNCfyJ";
+    const HOME_URL = window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + "tcps-brazil-index.html";
+    const REGISTER_URL = window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + "tcps-brazil-register.html";
+    const PLAN_CONFIG = {
+      basic: {
+        name: "Basic",
+        monthly: { amountLabel: "29", amountValue: "29", billingLabel: "Mensal", bonus: "Sem bônus" },
+        yearly: { amountLabel: "191", amountValue: "191", billingLabel: "Anual", bonus: "TCPS-A" }
+      },
+      pro: {
+        name: "Pro",
+        monthly: { amountLabel: "59", amountValue: "59", billingLabel: "Mensal", bonus: "Sem bônus" },
+        yearly: { amountLabel: "389", amountValue: "389", billingLabel: "Anual", bonus: "TCPS-A + TCPS-B" }
+      },
+      elite: {
+        name: "Elite",
+        monthly: { amountLabel: "119", amountValue: "119", billingLabel: "Mensal", bonus: "Sem bônus" },
+        yearly: { amountLabel: "785", amountValue: "785", billingLabel: "Anual", bonus: "TCPS-A + TCPS-B" }
+      },
+      lifetime: {
+        name: "Lifetime",
+        lifetime: { amountLabel: "1599", amountValue: "1599", billingLabel: "Lifetime", bonus: "Todos os bônus" }
+      }
+    };
+
+    let selectedPlanForModal = null;
+
+    function goRegister(plan, billing){
+      let url = REGISTER_URL;
+      const params = new URLSearchParams();
+      if(plan) params.set("plan", String(plan).toLowerCase());
+      if(billing) params.set("billing", String(billing).toLowerCase());
+      const query = params.toString();
+      if(query) url += "?" + query;
+      window.location.href = url;
+    }
+
+    function goLogin(){
+      window.location.href = SERVER_BASE + "/login.html";
+    }
+
+    function logout(){
+      localStorage.removeItem("tcps_user_email");
+      window.location.href = HOME_URL;
+    }
+
+    function applyMemberState(){
+      const savedUser = localStorage.getItem("tcps_user_email");
+      const memberLabel = document.getElementById("memberLabel");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const loginBtn = document.getElementById("loginBtn");
+      const registerBtn = document.getElementById("registerBtn");
+      if(savedUser){
+        memberLabel.innerHTML = `<strong>${savedUser}</strong>`;
+        logoutBtn.classList.remove("is-hidden");
+        loginBtn.classList.add("is-hidden");
+        registerBtn.classList.add("is-hidden");
+      }else{
+        memberLabel.textContent = "Modo Visitante";
+        logoutBtn.classList.add("is-hidden");
+        loginBtn.classList.remove("is-hidden");
+        registerBtn.classList.remove("is-hidden");
+      }
+    }
+
+    function openPaymentModal(plan, billing){
+      const planKey = String(plan).toLowerCase();
+      const billingKey = String(billing).toLowerCase();
+      const config = PLAN_CONFIG[planKey] && PLAN_CONFIG[planKey][billingKey];
+      if(!config) return;
+      selectedPlanForModal = { plan: planKey, billing: billingKey, amount: config.amountValue };
+      document.getElementById("modalPlan").textContent = PLAN_CONFIG[planKey].name;
+      document.getElementById("modalBilling").textContent = config.billingLabel;
+      document.getElementById("modalAmount").textContent = config.amountLabel;
+      document.getElementById("modalBonus").textContent = config.bonus;
+      document.getElementById("walletAddress").textContent = WALLET_ADDRESS;
+      document.getElementById("txidInput").value = "";
+      document.getElementById("paymentMsg").textContent = "";
+      document.getElementById("paymentModal").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePaymentModal(){
+      document.getElementById("paymentModal").classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function handlePlanClick(plan, billing){
+      const savedUser = localStorage.getItem("tcps_user_email");
+      if(savedUser){ openPaymentModal(plan, billing); return; }
+      goRegister(plan, billing);
+    }
+
+    function copyWallet(){
+      navigator.clipboard.writeText(WALLET_ADDRESS).then(() => {
+        document.getElementById("paymentMsg").textContent = "Carteira copiada.";
+      }).catch(() => {
+        document.getElementById("paymentMsg").textContent = "Falha ao copiar. Copie manualmente.";
+      });
+    }
+
+    function submitPaymentConfirmation(){
+      if(!selectedPlanForModal) return;
+      const txid = document.getElementById("txidInput").value.trim();
+      const email = localStorage.getItem("tcps_user_email") || "";
+      const msg = document.getElementById("paymentMsg");
+      if(!email){ msg.textContent = "Faça login primeiro."; return; }
+      if(!txid){ msg.textContent = "Digite seu TXID."; return; }
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = SERVER_BASE + "/payment-confirm";
+      form.style.display = "none";
+      const payload = {
+        email: email,
+        plan: selectedPlanForModal.plan,
+        billing: selectedPlanForModal.billing,
+        amount: selectedPlanForModal.amount,
+        txid: txid
+      };
+      Object.entries(payload).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+      });
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const fromUrlUser = params.get("user");
+      if(fromUrlUser){
+        localStorage.setItem("tcps_user_email", fromUrlUser);
+        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
+        window.history.replaceState({}, "", cleanUrl);
+      }
+      applyMemberState();
+
+      document.querySelectorAll("[data-plan]").forEach((button) => {
+        button.addEventListener("click", () => handlePlanClick(button.dataset.plan, button.dataset.billing));
+      });
+
+      document.getElementById("copyWalletBtn").addEventListener("click", copyWallet);
+      document.getElementById("confirmPaymentBtn").addEventListener("click", submitPaymentConfirmation);
+      document.getElementById("closePaymentModal").addEventListener("click", closePaymentModal);
+      document.getElementById("paymentModal").addEventListener("click", (e) => { if(e.target.id === "paymentModal") closePaymentModal(); });
+      document.getElementById("loginBtn").addEventListener("click", goLogin);
+      document.getElementById("heroLoginBtn").addEventListener("click", goLogin);
+      document.getElementById("registerBtn").addEventListener("click", () => goRegister());
+      document.getElementById("ctaRegisterBtn").addEventListener("click", () => goRegister());
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+
+      const shouldOpenPayment = params.get("openPayment") === "1";
+      const pendingPlan = params.get("plan");
+      const pendingBilling = params.get("billing");
+      if(shouldOpenPayment && pendingPlan && pendingBilling && localStorage.getItem("tcps_user_email")){
+        openPaymentModal(pendingPlan, pendingBilling);
+        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
+        window.history.replaceState({}, "", cleanUrl);
+      }
+
+      const paymentStatus = params.get("payment");
+      if(paymentStatus === "success"){
+        setTimeout(() => { alert("Confirmação de pagamento enviada com sucesso."); }, 120);
+        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
+        window.history.replaceState({}, "", cleanUrl);
+      }
+    })();
+  </script>
+</body>
+</html>
