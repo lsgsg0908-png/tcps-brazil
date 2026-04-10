@@ -3,244 +3,234 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TCPS Brasil | Sinais de Trading</title>
-  <meta name="description" content="Sinais visuais, entrada limpa e acesso rápido ao sistema TCPS." />
+  <title>SinalPro Brasil</title>
+  <meta name="description" content="SinalPro Brasil oferece sinais fortes, resultados reais e acesso rápido ao mercado cripto." />
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
+    *{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#05060a;
-      --panel:#0d1018;
-      --panel-2:#121622;
-      --text:#f7f8fb;
-      --muted:#b8bfd0;
+      --bg:#07090d;
+      --bg2:#0c1118;
+      --card:#101722;
       --line:rgba(255,255,255,.08);
-      --green:#3dff8f;
-      --red:#ff4d6d;
-      --yellow:#ffd54a;
-      --accent:linear-gradient(135deg,#ffe44d 0%, #ff8a00 42%, #ff305f 100%);
-      --accent-2:linear-gradient(135deg,#3dff8f 0%, #00d4ff 100%);
+      --text:#f7fbff;
+      --muted:#a8b4c8;
+      --green:#2cff88;
+      --blue:#00d5ff;
+      --accent:linear-gradient(135deg,#2cff88 0%,#00d5ff 100%);
+      --accent2:linear-gradient(135deg,#1ad57e 0%,#14bdf6 100%);
+      --shadow:0 22px 60px rgba(0,0,0,.28);
+      --radius:28px;
     }
     html{scroll-behavior:smooth}
     body{
       font-family:Arial,sans-serif;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,138,0,.16), transparent 28%),
-        radial-gradient(circle at 80% 16%, rgba(255,48,95,.20), transparent 28%),
-        radial-gradient(circle at 50% 100%, rgba(61,255,143,.12), transparent 30%),
-        linear-gradient(180deg,#06070b 0%,#030407 100%);
       color:var(--text);
+      background:
+        radial-gradient(circle at 12% 14%, rgba(0,213,255,.13), transparent 28%),
+        radial-gradient(circle at 84% 12%, rgba(44,255,136,.10), transparent 24%),
+        linear-gradient(180deg,#07090d 0%,#05070b 100%);
       overflow-x:hidden;
-      line-height:1.5;
     }
     a{text-decoration:none;color:inherit}
     button{font:inherit}
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .container{width:min(1180px, calc(100% - 32px));margin:0 auto}
     .topbar{
-      position:sticky;top:0;z-index:999;
-      backdrop-filter:blur(14px);
-      background:rgba(5,6,10,.72);
+      position:sticky;top:0;z-index:1000;
+      background:rgba(7,9,13,.82);backdrop-filter:blur(14px);
       border-bottom:1px solid var(--line);
     }
-    .topbar-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;flex-direction:column;gap:2px}
-    .brand strong{font-size:18px;letter-spacing:.4px}
-    .brand span{font-size:12px;color:var(--muted)}
-    .nav{display:flex;align-items:center;gap:22px}
-    .nav a{font-size:14px;color:#d8deea}
+    .topbar-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-mark{
+      width:42px;height:42px;border-radius:14px;position:relative;
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    .brand-mark::before{
+      content:"";position:absolute;inset:7px;
+      border-radius:12px;
+      background:conic-gradient(from 230deg,var(--green),var(--blue),var(--green));
+      mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      padding:5px;-webkit-mask-composite:xor;mask-composite:exclude;
+    }
+    .brand-copy strong{display:block;font-size:20px;letter-spacing:.2px}
+    .brand-copy span{display:block;font-size:12px;color:var(--muted)}
+    .nav{display:flex;align-items:center;gap:18px}
+    .nav a{font-size:14px;color:#d5dfef}
     .nav a:hover{color:#fff}
-    .member-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .member-label,.ghost-btn,.solid-btn,.plan-btn,.copy-btn,.modal-btn,.hero-cta{
-      min-height:50px;padding:0 20px;border-radius:999px;border:none;cursor:pointer;
-      display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;
-      transition:.18s ease transform,.18s ease opacity,.18s ease box-shadow;
+    .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .pill,.btn,.ghost{
+      min-height:48px;padding:0 20px;border-radius:999px;border:none;display:inline-flex;align-items:center;justify-content:center;
+      font-weight:800;font-size:14px;cursor:pointer;transition:transform .18s ease,opacity .18s ease,box-shadow .18s ease;
     }
-    .member-label{
-      border:1px solid var(--line);background:rgba(255,255,255,.03);color:#e6ebf5;cursor:default
-    }
-    .ghost-btn{
-      color:#eff3fb;background:rgba(255,255,255,.04);border:1px solid var(--line)
-    }
-    .solid-btn,.plan-btn,.copy-btn,.modal-btn.primary,.hero-cta{
-      color:#0b0c11;background:var(--accent);box-shadow:0 18px 38px rgba(255,92,0,.18)
-    }
-    .ghost-btn:hover,.solid-btn:hover,.plan-btn:hover,.copy-btn:hover,.modal-btn:hover,.hero-cta:hover{transform:translateY(-2px);opacity:.98}
-    .is-hidden{display:none!important}
-    section{padding:88px 0}
-    .hero{padding:54px 0 48px}
+    .pill{border:1px solid var(--line);background:rgba(255,255,255,.03);color:#dce8f7;cursor:default}
+    .btn{background:var(--accent);color:#071018;box-shadow:0 16px 34px rgba(0,213,255,.16)}
+    .ghost{border:1px solid var(--line);background:rgba(255,255,255,.03);color:#edf5ff}
+    .btn:hover,.ghost:hover{transform:translateY(-2px);opacity:.98}
+    .hidden{display:none!important}
+
+    section{padding:90px 0}
+    .hero{padding:56px 0 54px}
     .hero-shell{
-      position:relative;border:1px solid var(--line);border-radius:34px;overflow:hidden;
-      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
-      box-shadow:0 28px 80px rgba(0,0,0,.34)
+      position:relative;overflow:hidden;border-radius:34px;border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));box-shadow:var(--shadow);
     }
-    .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:28px;padding:36px}
-    .hero-copy{position:relative;z-index:2}
-    .kicker{
+    .hero-shell::before{
+      content:"";position:absolute;inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:36px 36px;opacity:.16;pointer-events:none;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:center;padding:36px}
+    .badge{
       display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
-      background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:12px;font-weight:800;color:#ffe8b0;
-      letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px
+      background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:12px;font-weight:800;letter-spacing:.8px;
+      text-transform:uppercase;color:#dff8ff;margin-bottom:18px;
     }
-    .kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--yellow);box-shadow:0 0 12px rgba(255,213,74,.9)}
-    .hero h1{font-size:72px;line-height:.95;letter-spacing:-2.8px;max-width:760px;margin-bottom:16px;text-transform:uppercase}
+    .badge::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(44,255,136,.85)}
+    .hero h1{font-size:72px;line-height:.93;letter-spacing:-2.6px;text-transform:uppercase;max-width:700px;margin-bottom:14px}
     .hero h1 span{display:block;background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .hero-sub{font-size:20px;color:#eef2fa;max-width:620px;font-weight:700;margin-bottom:10px}
-    .hero p{font-size:17px;color:var(--muted);max-width:620px}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 18px}
-    .hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
-    .metric{
-      border:1px solid var(--line);border-radius:22px;padding:18px;background:rgba(255,255,255,.035)
-    }
-    .metric small{display:block;font-size:12px;color:#9da7bc;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
-    .metric strong{display:block;font-size:28px;line-height:1;font-weight:900}
-    .metric span{display:block;font-size:13px;color:#d1d7e5;margin-top:6px}
-    .hero-visual{
-      position:relative;min-height:560px;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.06);
-      background:
-        radial-gradient(circle at 22% 14%, rgba(61,255,143,.22), transparent 28%),
-        radial-gradient(circle at 82% 18%, rgba(255,48,95,.22), transparent 26%),
-        linear-gradient(180deg,#0d111a 0%,#090b11 100%)
-    }
-    .hero-visual::before{
-      content:"";position:absolute;inset:0;
-      background:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size:42px 42px;opacity:.14
-    }
-    .scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);top:16%;box-shadow:0 0 22px rgba(255,255,255,.7);animation:scan 6s linear infinite}
-    @keyframes scan{0%{top:8%}100%{top:88%}}
-    .chart{position:absolute;inset:0;padding:28px}
-    .candles{position:absolute;left:32px;right:32px;bottom:82px;height:62%}
-    .candle{position:absolute;bottom:0;width:18px;border-radius:6px 6px 4px 4px}
-    .candle::before{content:"";position:absolute;left:50%;transform:translateX(-50%);width:3px;border-radius:2px;top:-26px;bottom:-26px;background:currentColor;opacity:.9}
-    .green{background:var(--green);color:var(--green);box-shadow:0 0 20px rgba(61,255,143,.25)}
-    .red{background:var(--red);color:var(--red);box-shadow:0 0 20px rgba(255,77,109,.2)}
-    .line-path{position:absolute;left:28px;right:28px;top:26%;height:2px;background:linear-gradient(90deg,rgba(61,255,143,0) 0%, rgba(61,255,143,.95) 20%, rgba(255,228,77,.95) 54%, rgba(255,48,95,.95) 100%);transform:rotate(-8deg);transform-origin:left center;box-shadow:0 0 22px rgba(255,228,77,.35)}
-    .line-path.two{top:46%;left:90px;right:80px;transform:rotate(12deg);background:linear-gradient(90deg,rgba(255,48,95,0),rgba(255,48,95,.95),rgba(61,255,143,.95))}
-    .floating-card{
-      position:absolute;border:1px solid rgba(255,255,255,.08);background:rgba(8,10,15,.84);
-      backdrop-filter:blur(10px);border-radius:22px;padding:16px 18px;box-shadow:0 18px 45px rgba(0,0,0,.28)
-    }
-    .floating-card strong{display:block;font-size:28px;line-height:1;font-weight:900}
-    .floating-card span{display:block;font-size:12px;color:#d7dde8;text-transform:uppercase;letter-spacing:.8px;margin-top:7px}
-    .card-1{top:28px;right:22px}
-    .card-2{bottom:24px;left:20px}
-    .card-3{bottom:40px;right:24px}
-    .hero-tags{position:absolute;left:22px;top:24px;display:flex;gap:10px;flex-wrap:wrap;max-width:65%}
-    .hero-tag{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:800;color:#f3f6fd;text-transform:uppercase}
+    .hero-sub{font-size:20px;font-weight:700;max-width:620px;color:#edf8ff;margin-bottom:10px}
+    .hero p{font-size:17px;color:var(--muted);max-width:610px}
+    .hero-cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 18px}
+    .metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .metric{border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:22px;padding:18px}
+    .metric small{display:block;font-size:11px;color:#9fb0c8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+    .metric strong{display:block;font-size:31px;line-height:1;font-weight:900}
+    .metric span{display:block;font-size:13px;color:#d6e1ef;margin-top:6px}
+    .hero-art{position:relative;min-height:560px;border-radius:28px;border:1px solid rgba(255,255,255,.06);overflow:hidden;background:linear-gradient(180deg,#0b1119,#090d13)}
+    .hero-art::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%, rgba(0,213,255,.16), transparent 26%), radial-gradient(circle at 80% 22%, rgba(44,255,136,.12), transparent 24%)}
+    .scan{position:absolute;left:0;right:0;height:2px;top:15%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);box-shadow:0 0 22px rgba(255,255,255,.55);animation:scan 7s linear infinite}
+    @keyframes scan{0%{top:12%}100%{top:86%}}
+    .candles{position:absolute;left:28px;right:28px;bottom:74px;height:64%;display:flex;align-items:flex-end;gap:10px}
+    .c{flex:1;position:relative;border-radius:10px 10px 4px 4px;min-height:48px}
+    .c::before{content:"";position:absolute;left:50%;transform:translateX(-50%);width:3px;top:-28px;bottom:-28px;background:currentColor;border-radius:2px}
+    .g{background:var(--green);color:var(--green);box-shadow:0 0 20px rgba(44,255,136,.18)}
+    .r{background:#ff617a;color:#ff617a;box-shadow:0 0 20px rgba(255,97,122,.16)}
+    .trend{position:absolute;left:34px;right:30px;top:36%;height:2px;background:linear-gradient(90deg,rgba(44,255,136,0),rgba(44,255,136,.95),rgba(0,213,255,.95));transform:rotate(-7deg);box-shadow:0 0 16px rgba(0,213,255,.3)}
+    .trend.two{top:56%;left:90px;right:80px;transform:rotate(13deg);background:linear-gradient(90deg,rgba(0,213,255,0),rgba(0,213,255,.9),rgba(44,255,136,.95))}
+    .float{position:absolute;padding:16px 18px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:rgba(9,14,20,.84);backdrop-filter:blur(8px);box-shadow:0 18px 42px rgba(0,0,0,.26)}
+    .float strong{display:block;font-size:28px;line-height:1;font-weight:900}
+    .float span{display:block;font-size:12px;color:#d7e5f2;text-transform:uppercase;letter-spacing:.8px;margin-top:7px}
+    .f1{top:26px;right:24px}.f2{bottom:24px;left:22px}.f3{bottom:36px;right:24px}
 
-    .video-section .section-title,.plans .section-title,.cta-box h2{font-size:52px;line-height:.96;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:14px}
-    .section-top{max-width:760px;margin:0 auto 34px;text-align:center}
+    .section-top{text-align:center;max-width:760px;margin:0 auto 34px}
+    .section-top h2{font-size:52px;line-height:.95;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:14px}
     .section-top p{font-size:17px;color:var(--muted)}
-    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .video-card{
-      border:1px solid var(--line);border-radius:28px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.018));
-      box-shadow:0 22px 50px rgba(0,0,0,.22)
-    }
-    .video-thumb{aspect-ratio:9/16;position:relative;overflow:hidden;background:linear-gradient(180deg,#0f131d 0%,#090b12 100%)}
-    .video-thumb::before{
-      content:"";position:absolute;inset:0;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.10), transparent 24%),
-        linear-gradient(180deg, rgba(255,77,109,.26), rgba(0,0,0,0) 34%),
-        linear-gradient(135deg, rgba(61,255,143,.20), rgba(255,228,77,.14) 52%, rgba(255,48,95,.22));
-    }
-    .bars{position:absolute;left:18px;right:18px;bottom:18px;height:56%;display:flex;align-items:flex-end;gap:7px}
-    .bars i{flex:1;border-radius:10px 10px 4px 4px;background:var(--accent);opacity:.9;box-shadow:0 0 18px rgba(255,138,0,.18)}
-    .play{position:absolute;inset:auto auto 18px 18px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16)}
-    .play::before{content:"";margin-left:4px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}
-    .thumb-label{position:absolute;left:18px;top:18px;padding:10px 12px;border-radius:999px;background:#0c0f16;border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}
-    .thumb-big{position:absolute;left:18px;right:18px;top:82px;font-size:32px;line-height:.92;font-weight:900;letter-spacing:-1px;text-transform:uppercase}
-    .video-copy{padding:16px 18px 18px}
-    .video-copy strong{display:block;font-size:20px;line-height:1.06;margin-bottom:8px;text-transform:uppercase}
-    .video-copy p{color:var(--muted);font-size:14px}
 
-    .stats-band{padding-top:18px}
-    .stats-shell{
-      border:1px solid var(--line);border-radius:30px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
-      display:grid;grid-template-columns:1.1fr .9fr .9fr .9fr;gap:16px;align-items:stretch
-    }
-    .stats-copy{padding:12px 10px}
-    .stats-copy h2{font-size:44px;line-height:.95;text-transform:uppercase;letter-spacing:-1.4px;margin-bottom:10px}
-    .stats-copy p{color:var(--muted);font-size:16px;max-width:440px}
-    .stat-box{
-      border:1px solid var(--line);border-radius:24px;background:#0b0f17;padding:18px;display:flex;flex-direction:column;justify-content:space-between
-    }
-    .stat-box small{font-size:12px;color:#a3aec4;text-transform:uppercase;letter-spacing:.8px}
-    .stat-box strong{font-size:42px;line-height:1;font-weight:900;margin:12px 0 8px}
-    .stat-box span{color:#d5dceb;font-size:13px}
+    .results-shell{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+    .big-results{display:grid;gap:18px}
+    .top-card,.proof-card,.plans-shell,.trust-grid .trust,.cta-box,.modal-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.018));box-shadow:var(--shadow)}
+    .top-card{padding:24px;display:grid;gap:18px}
+    .top-card h3{font-size:16px;text-transform:uppercase;letter-spacing:.9px;color:#dff8ff}
+    .top-list{display:grid;gap:14px}
+    .top-item{padding:18px;border-radius:22px;background:#0b1118;border:1px solid rgba(255,255,255,.07)}
+    .top-item strong{display:block;font-size:44px;line-height:.95;font-weight:900;background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .top-item span{display:block;margin-top:8px;color:#d6e2ef;font-size:14px}
+    .proof-card{padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+    .proof-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .proof-head h3{font-size:17px;text-transform:uppercase}
+    .proof-chip{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);font-size:11px;font-weight:800;text-transform:uppercase}
+    .slider{position:relative;overflow:hidden;border-radius:22px;border:1px solid rgba(255,255,255,.06);background:#0b1118;min-height:420px}
+    .slide-track{display:flex;transition:transform .45s ease;height:100%}
+    .slide{min-width:100%;padding:22px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;background:linear-gradient(180deg,rgba(0,213,255,.05),rgba(255,255,255,0))}
+    .screen{position:relative;flex:1;border-radius:22px;background:linear-gradient(180deg,#121a24,#090d13);border:1px solid rgba(255,255,255,.07);overflow:hidden;min-height:255px}
+    .screen::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px, transparent 1px);background-size:24px 24px;opacity:.18}
+    .screen .rate{position:absolute;left:18px;top:18px;font-size:44px;line-height:.95;font-weight:900;background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .screen .mini{position:absolute;right:18px;top:20px;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:11px;font-weight:800}
+    .screen .chartline{position:absolute;left:18px;right:18px;bottom:60px;height:2px;background:linear-gradient(90deg,rgba(44,255,136,0),rgba(44,255,136,.95),rgba(0,213,255,.95));transform:rotate(-10deg);box-shadow:0 0 12px rgba(0,213,255,.25)}
+    .screen .chartline.two{bottom:110px;left:70px;right:40px;transform:rotate(12deg)}
+    .screen .entry{position:absolute;left:18px;bottom:18px;font-size:13px;color:#d9e7f4}
+    .slide p{color:var(--muted);font-size:14px}
+    .dots{display:flex;gap:8px;justify-content:center}
+    .dots button{width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,.18);cursor:pointer}
+    .dots button.active{background:var(--green);box-shadow:0 0 12px rgba(44,255,136,.5)}
 
-    .plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .plan-card{
-      position:relative;border:1px solid var(--line);border-radius:30px;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
-      box-shadow:0 22px 50px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow:hidden
+    .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .trust{padding:22px}
+    .trust strong{display:block;font-size:18px;text-transform:uppercase;margin-bottom:10px}
+    .trust p{font-size:14px;color:var(--muted)}
+
+    .plans-shell{padding:24px}
+    .plans-ui{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+    .plan-list{display:grid;gap:12px}
+    .plan-tab{
+      padding:18px 18px 16px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:#0b1118;cursor:pointer;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
     }
-    .plan-card.featured{border-color:rgba(255,228,77,.30);transform:translateY(-6px);box-shadow:0 28px 60px rgba(255,138,0,.22)}
-    .plan-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
-    .plan-badge{display:inline-flex;width:max-content;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);font-size:11px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;margin-bottom:14px}
-    .plan-name{font-size:30px;line-height:1;text-transform:uppercase;font-weight:900;margin-bottom:10px}
-    .plan-desc{font-size:14px;color:var(--muted);min-height:64px;margin-bottom:12px}
-    .price-box{border:1px solid rgba(255,255,255,.08);background:#0a0d14;border-radius:22px;padding:16px 16px 14px;margin-bottom:12px}
-    .price-box small{display:block;font-size:12px;color:#a4aec4;text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px}
-    .price-line{display:flex;align-items:flex-end;gap:7px}
-    .price-line strong{font-size:52px;line-height:.92;font-weight:900}
-    .price-line span{font-size:21px;font-weight:800;padding-bottom:6px}
-    .sub-price{font-size:13px;color:#cdd5e5;margin-top:6px}
-    .save{font-size:12px;color:#ffe08d;margin-top:8px;font-weight:800;text-transform:uppercase}
-    .features{list-style:none;display:grid;gap:10px;margin:14px 0 18px;min-height:164px}
-    .features li{padding-left:18px;position:relative;color:#edf2fb;font-size:14px}
-    .features li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(61,255,143,.6)}
-    .bonus{border:1px solid rgba(255,228,77,.16);background:rgba(255,228,77,.07);color:#ffe8a6;border-radius:16px;padding:12px;text-align:center;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
-    .plan-stack{display:grid;gap:10px;margin-top:auto}
-    .plan-btn.secondary{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#eff4fc;box-shadow:none}
+    .plan-tab:hover{transform:translateX(4px)}
+    .plan-tab.active{border-color:rgba(0,213,255,.34);background:linear-gradient(180deg,rgba(0,213,255,.08),rgba(255,255,255,.02));box-shadow:0 0 0 1px rgba(0,213,255,.18) inset}
+    .plan-tab small{display:block;font-size:11px;color:#9fb0c8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+    .plan-tab strong{display:block;font-size:26px;line-height:1;text-transform:uppercase}
+    .plan-tab span{display:block;font-size:13px;color:#d4dfed;margin-top:8px}
+    .tab-badge{display:inline-flex;margin-top:8px;padding:7px 10px;border-radius:999px;background:rgba(44,255,136,.12);border:1px solid rgba(44,255,136,.24);color:#bcffda;font-size:11px;font-weight:900;text-transform:uppercase}
+    .plan-panel{padding:26px;border-radius:26px;border:1px solid rgba(255,255,255,.08);background:#0b1118;min-height:540px;display:flex;flex-direction:column;gap:18px}
+    .panel-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    .panel-title small{display:block;font-size:12px;color:#9eb0c8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+    .panel-title h3{font-size:44px;line-height:.95;text-transform:uppercase;letter-spacing:-1.6px}
+    .panel-title p{font-size:15px;color:var(--muted);max-width:540px;margin-top:12px}
+    .price-tag{padding:18px 20px;border-radius:24px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));min-width:210px}
+    .price-tag small{display:block;font-size:11px;color:#9eb0c8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+    .price-tag strong{font-size:56px;line-height:.95;font-weight:900}
+    .price-tag span{font-size:22px;font-weight:800}
+    .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .box{padding:18px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)}
+    .box strong{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:#dff8ff;margin-bottom:10px}
+    .box ul{list-style:none;display:grid;gap:10px}
+    .box li{font-size:14px;color:#edf6ff;padding-left:18px;position:relative}
+    .box li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(44,255,136,.55)}
+    .panel-note{padding:14px 16px;border-radius:18px;border:1px solid rgba(44,255,136,.18);background:rgba(44,255,136,.07);color:#dffff0;font-size:14px}
+    .panel-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}
 
-    .rule-box{
-      margin-top:24px;border:1px solid rgba(255,77,109,.2);background:rgba(255,77,109,.08);border-radius:22px;padding:18px 20px;text-align:center;color:#ffdbe2;font-size:14px
-    }
+    .cta-box{padding:44px 28px;text-align:center}
+    .cta-box h2{font-size:50px;line-height:.95;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:14px}
+    .cta-box p{font-size:17px;color:var(--muted);max-width:760px;margin:0 auto 22px}
 
-    .cta-box{
-      border:1px solid var(--line);border-radius:34px;padding:44px 28px;text-align:center;
-      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.018));box-shadow:0 26px 70px rgba(0,0,0,.24)
-    }
-    .cta-box p{max-width:760px;margin:0 auto 22px;color:var(--muted);font-size:17px}
-    .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .footer{padding:36px 0 52px;border-top:1px solid var(--line)}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:#96a6be;font-size:13px}
 
-    .footer{padding:36px 0 50px;border-top:1px solid var(--line)}
-    .footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:#97a2b9;font-size:13px}
-
-    .payment-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,4,7,.82);backdrop-filter:blur(10px);z-index:3000}
-    .payment-modal.active{display:flex}
-    .payment-card{width:100%;max-width:660px;border-radius:34px;border:1px solid var(--line);background:linear-gradient(180deg,#0c0f16,#07090e);padding:28px;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.42)}
-    .payment-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
-    .close-modal{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.08);color:#fff;font-size:24px}
-    .payment-card h3{font-size:42px;line-height:.96;text-transform:uppercase;letter-spacing:-1.4px;margin-bottom:10px}
-    .payment-card p{color:var(--muted);font-size:15px;margin-bottom:18px;padding-right:48px}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,6,10,.82);backdrop-filter:blur(10px);z-index:3000}
+    .modal.active{display:flex}
+    .modal-card{position:relative;width:min(680px,100%);padding:28px}
+    .close{position:absolute;top:16px;right:16px;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:24px;cursor:pointer}
+    .modal-card h3{font-size:42px;line-height:.96;text-transform:uppercase;letter-spacing:-1.4px;margin-bottom:10px}
+    .modal-card p{font-size:15px;color:var(--muted);margin-bottom:18px;padding-right:48px}
     .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-    .summary-box{border:1px solid var(--line);border-radius:20px;background:#0a0d14;padding:14px}
-    .summary-box small{display:block;font-size:11px;color:#9ea8be;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
-    .summary-box strong{display:block;font-size:22px;line-height:1.08;font-weight:900}
-    .wallet-box,.field-box{border:1px solid var(--line);border-radius:24px;background:#0a0d14;padding:18px;margin-bottom:14px}
-    .wallet-box small,.field-box label{display:block;font-size:12px;color:#ffe8b0;text-transform:uppercase;letter-spacing:.8px;font-weight:800;margin-bottom:10px}
-    .wallet-address{border:1px dashed rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:18px;padding:14px;word-break:break-all;font-weight:700;color:#fff;margin-bottom:12px}
-    .modal-note{border:1px solid rgba(255,228,77,.16);background:rgba(255,228,77,.08);border-radius:16px;padding:12px;color:#fff1bf;font-size:14px;line-height:1.55;margin-top:12px}
-    .field-box input{width:100%;min-height:56px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#fff;padding:0 14px;outline:none;font-size:15px}
-    .modal-msg{min-height:20px;margin-top:12px;text-align:center;color:#9effc7;font-size:14px}
-    .modal-foot{margin-top:14px;color:#96a2b8;font-size:13px;line-height:1.6}
+    .summary .s{padding:14px;border-radius:20px;background:#0b1118;border:1px solid rgba(255,255,255,.07)}
+    .summary .s small{display:block;font-size:11px;color:#9eb0c8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+    .summary .s strong{display:block;font-size:22px;line-height:1.1;font-weight:900}
+    .wallet{padding:18px;border-radius:24px;background:#0b1118;border:1px solid rgba(255,255,255,.07);margin-bottom:16px}
+    .wallet small{display:block;font-size:12px;color:#dff8ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+    .wallet-address{min-height:58px;padding:14px 16px;border-radius:18px;border:1px dashed rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;word-break:break-all;font-size:16px;font-weight:700;margin-bottom:12px}
+    .rules{padding:14px 16px;border-radius:16px;border:1px solid rgba(44,255,136,.18);background:rgba(44,255,136,.07);color:#dcfff0;font-size:14px;line-height:1.65}
+    .field label{display:block;font-size:14px;font-weight:800;color:#eef7ff;margin-bottom:8px}
+    .field input{width:100%;min-height:58px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;padding:0 16px;outline:none;font-size:15px}
+    .modal-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+    .msg{min-height:20px;margin-top:14px;font-size:14px;color:#bfffe0}
 
-    @media (max-width:1120px){
-      .hero-grid,.stats-shell,.plans-grid{grid-template-columns:1fr 1fr}
-      .video-grid{grid-template-columns:1fr 1fr}
-      .summary{grid-template-columns:1fr 1fr}
+    @media (max-width:1080px){
+      .hero-grid,.results-shell,.plans-ui,.panel-grid,.summary{grid-template-columns:1fr}
+      .trust-grid{grid-template-columns:repeat(2,1fr)}
+      .hero-art{min-height:480px}
+      .plan-panel{min-height:auto}
     }
     @media (max-width:760px){
       .nav{display:none}
-      .hero-grid,.video-grid,.stats-shell,.plans-grid,.summary,.hero-metrics{grid-template-columns:1fr}
+      .topbar-inner{align-items:flex-start;padding:14px 0}
+      section{padding:72px 0}
+      .hero{padding:40px 0 34px}
       .hero-grid{padding:22px}
-      .hero h1{font-size:46px;letter-spacing:-1.7px}
-      .video-section .section-title,.plans .section-title,.cta-box h2,.stats-copy h2{font-size:34px}
-      .hero-visual{min-height:430px}
-      .payment-card{padding:22px}
-      .payment-card h3{font-size:32px}
-      section{padding:70px 0}
+      .hero h1,.section-top h2,.cta-box h2{font-size:38px}
+      .hero-sub,.hero p,.section-top p,.cta-box p{font-size:16px}
+      .metric-row,.trust-grid,.summary{grid-template-columns:1fr}
+      .actions{justify-content:flex-start}
+      .panel-top{flex-direction:column}
+      .price-tag{min-width:auto;width:100%}
+      .modal-card h3{font-size:32px}
+      .pill,.btn,.ghost{min-height:46px;padding:0 18px}
     }
   </style>
 </head>
@@ -248,274 +238,207 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
-        <strong>TCPS BRASIL</strong>
-        <span>Sinais visuais • execução limpa • acesso rápido</span>
+        <div class="brand-mark"></div>
+        <div class="brand-copy">
+          <strong>SinalPro Brasil</strong>
+          <span>Sinais fortes. Resultados reais.</span>
+        </div>
       </div>
       <nav class="nav">
-        <a href="#videos">Vídeos</a>
-        <a href="#results">Números</a>
-        <a href="#plans">Planos</a>
-        <a href="#buy">Comprar</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#vantagens">Vantagens</a>
+        <a href="#planos">Planos</a>
+        <a href="#final">Entrar</a>
       </nav>
-      <div class="member-actions">
-        <div class="member-label" id="memberLabel">Modo Visitante</div>
-        <button class="ghost-btn is-hidden" id="logoutBtn" type="button">Sair</button>
-        <button class="ghost-btn" id="loginBtn" type="button">Login</button>
-        <button class="solid-btn" id="registerBtn" type="button">Cadastrar</button>
+      <div class="actions">
+        <div class="pill" id="memberPill">Modo visitante</div>
+        <button class="ghost hidden" id="logoutBtn" type="button">Sair</button>
+        <button class="btn" id="registerBtn" type="button">Criar conta</button>
       </div>
     </div>
   </header>
 
   <section class="hero">
+    <div class="container hero-shell">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">Mercado cripto • acesso rápido</div>
+          <h1>Sinais fortes. <span>Resultados reais.</span></h1>
+          <div class="hero-sub">Lucros consistentes no mercado cripto sem complicação.</div>
+          <p>Entre, escolha seu plano e receba acesso ao fluxo certo. Estrutura simples, foco em resultado e confirmação rápida após pagamento.</p>
+          <div class="hero-cta-row">
+            <a class="btn" href="#planos">Entrar agora</a>
+            <a class="ghost" href="#resultados">Ver resultados</a>
+          </div>
+          <div class="metric-row">
+            <div class="metric"><small>Top resultado</small><strong>+1157.62%</strong><span>Operações reais recentes</span></div>
+            <div class="metric"><small>Alta performance</small><strong>+418.12%</strong><span>Resultados selecionados</span></div>
+            <div class="metric"><small>Entrada forte</small><strong>+333.34%</strong><span>Execução com foco</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="scan"></div>
+          <div class="trend"></div>
+          <div class="trend two"></div>
+          <div class="float f1"><strong>+418.12%</strong><span>Resultado recente</span></div>
+          <div class="float f2"><strong>+1157.62%</strong><span>Top trade</span></div>
+          <div class="float f3"><strong>+333.34%</strong><span>Sinal forte</span></div>
+          <div class="candles">
+            <div class="c r" style="height:22%"></div>
+            <div class="c g" style="height:34%"></div>
+            <div class="c r" style="height:18%"></div>
+            <div class="c g" style="height:40%"></div>
+            <div class="c g" style="height:52%"></div>
+            <div class="c r" style="height:28%"></div>
+            <div class="c g" style="height:58%"></div>
+            <div class="c g" style="height:64%"></div>
+            <div class="c r" style="height:41%"></div>
+            <div class="c g" style="height:72%"></div>
+            <div class="c g" style="height:78%"></div>
+            <div class="c r" style="height:54%"></div>
+            <div class="c g" style="height:82%"></div>
+            <div class="c g" style="height:88%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultados">
     <div class="container">
-      <div class="hero-shell">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="kicker">YouTube Shorts → Landing → Compra</div>
-            <h1>Entradas limpas.<span>menos ruído.</span>mais ação.</h1>
-            <div class="hero-sub">Página feita para clicar, entrar e confirmar pagamento rápido.</div>
-            <p>Sem texto longo. Sem bloco chato. Aqui o foco é mostrar oportunidade, impacto visual e acesso imediato ao sistema.</p>
-            <div class="hero-actions">
-              <a class="hero-cta" href="#plans">QUERO ACESSO AGORA</a>
-              <button class="ghost-btn" id="heroLoginBtn" type="button">JÁ SOU MEMBRO</button>
-            </div>
-            <div class="hero-metrics">
-              <div class="metric"><small>Visual forte</small><strong>10–30s</strong><span>estrutura ideal para Shorts</span></div>
-              <div class="metric"><small>Pagamento</small><strong>USDT</strong><span>TRC20 pronto para confirmação</span></div>
-              <div class="metric"><small>Fluxo</small><strong>RÁPIDO</strong><span>cadastro → pagamento → TXID</span></div>
+      <div class="section-top">
+        <h2>Resultados recentes dos sinais</h2>
+        <p>Mostramos poucos destaques primeiro para dar clareza. Os números abaixo representam a força do que você vai encontrar dentro do acesso.</p>
+      </div>
+      <div class="results-shell">
+        <div class="big-results">
+          <div class="top-card">
+            <h3>Top 3 resultados</h3>
+            <div class="top-list">
+              <div class="top-item"><strong>+1157.62%</strong><span>Movimento explosivo com execução forte</span></div>
+              <div class="top-item"><strong>+418.12%</strong><span>Resultado destacado dentro do fluxo</span></div>
+              <div class="top-item"><strong>+333.34%</strong><span>Sinal agressivo com retorno alto</span></div>
             </div>
           </div>
-          <div class="hero-visual">
-            <div class="hero-tags">
-              <div class="hero-tag">Entry</div>
-              <div class="hero-tag">Target</div>
-              <div class="hero-tag">Stop</div>
+          <div class="top-card">
+            <h3>O que isso mostra</h3>
+            <div class="top-list">
+              <div class="top-item"><strong>Entradas claras</strong><span>Menos ruído, mais direção para agir</span></div>
+              <div class="top-item"><strong>Foco em resultado</strong><span>Execução pensada para oportunidades fortes</span></div>
             </div>
-            <div class="scanline"></div>
-            <div class="chart">
-              <div class="line-path"></div>
-              <div class="line-path two"></div>
-              <div class="candles">
-                <div class="candle red" style="left:2%;height:22%"></div>
-                <div class="candle green" style="left:10%;height:32%"></div>
-                <div class="candle green" style="left:18%;height:48%"></div>
-                <div class="candle red" style="left:26%;height:28%"></div>
-                <div class="candle green" style="left:34%;height:58%"></div>
-                <div class="candle green" style="left:42%;height:64%"></div>
-                <div class="candle red" style="left:50%;height:40%"></div>
-                <div class="candle green" style="left:58%;height:74%"></div>
-                <div class="candle green" style="left:66%;height:78%"></div>
-                <div class="candle red" style="left:74%;height:46%"></div>
-                <div class="candle green" style="left:82%;height:88%"></div>
+          </div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-head">
+            <h3>Provas em destaque</h3>
+            <div class="proof-chip">seleção visual</div>
+          </div>
+          <div class="slider" id="proofSlider">
+            <div class="slide-track" id="slideTrack">
+              <div class="slide">
+                <div class="screen">
+                  <div class="rate">+1157.62%</div>
+                  <div class="mini">Resultado real</div>
+                  <div class="chartline"></div>
+                  <div class="chartline two"></div>
+                  <div class="entry">Data e hora variam por operação</div>
+                </div>
+                <p>Operação de alto impacto usada como destaque principal da página.</p>
+              </div>
+              <div class="slide">
+                <div class="screen">
+                  <div class="rate">+418.12%</div>
+                  <div class="mini">Trade recente</div>
+                  <div class="chartline" style="transform:rotate(-5deg)"></div>
+                  <div class="chartline two" style="transform:rotate(15deg)"></div>
+                  <div class="entry">Entradas e timings diferentes</div>
+                </div>
+                <p>Resultado forte para mostrar consistência além do top trade.</p>
+              </div>
+              <div class="slide">
+                <div class="screen">
+                  <div class="rate">+333.34%</div>
+                  <div class="mini">Sinal selecionado</div>
+                  <div class="chartline" style="transform:rotate(-12deg)"></div>
+                  <div class="chartline two" style="transform:rotate(10deg)"></div>
+                  <div class="entry">Resultados recentes dos sinais</div>
+                </div>
+                <p>Outro destaque para reforçar variedade e força visual na vitrine.</p>
               </div>
             </div>
-            <div class="floating-card card-1"><strong>+389</strong><span>USDT / plano anual</span></div>
-            <div class="floating-card card-2"><strong>ENTRY</strong><span>ponto visual mais limpo</span></div>
-            <div class="floating-card card-3"><strong>TRC20</strong><span>confirmação por TXID</span></div>
           </div>
+          <div class="dots" id="dots"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="video-section" id="videos">
+  <section id="vantagens">
     <div class="container">
       <div class="section-top">
-        <h2 class="section-title">Vídeos curtos. impacto rápido.</h2>
-        <p>O estilo certo aqui é mostrar movimento, entrada, alvo e resultado. Pouca fala. Muito contraste. Muito ritmo.</p>
+        <h2>Sem enrolação</h2>
+        <p>O site foi desenhado para vender resultado, não para cansar com explicação longa.</p>
       </div>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-thumb">
-            <div class="thumb-label">SHORT 01</div>
-            <div class="thumb-big">WAIT<br>THIS IS<br>THE ENTRY</div>
-            <div class="play"></div>
-            <div class="bars"><i style="height:24%"></i><i style="height:38%"></i><i style="height:18%"></i><i style="height:64%"></i><i style="height:52%"></i><i style="height:78%"></i><i style="height:88%"></i></div>
-          </div>
-          <div class="video-copy">
-            <strong>Entrada limpa</strong>
-            <p>Texto curto, fundo forte e foco no ponto de entrada.</p>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-thumb">
-            <div class="thumb-label">SHORT 02</div>
-            <div class="thumb-big">TRAP<br>BREAK<br>REVERSE</div>
-            <div class="play"></div>
-            <div class="bars"><i style="height:78%"></i><i style="height:68%"></i><i style="height:40%"></i><i style="height:24%"></i><i style="height:18%"></i><i style="height:58%"></i><i style="height:84%"></i></div>
-          </div>
-          <div class="video-copy">
-            <strong>Liquidez visual</strong>
-            <p>Mostrar armadilha, reversão e alvo em poucos segundos.</p>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-thumb">
-            <div class="thumb-label">SHORT 03</div>
-            <div class="thumb-big">ENTRY<br>TARGET<br>DONE</div>
-            <div class="play"></div>
-            <div class="bars"><i style="height:22%"></i><i style="height:34%"></i><i style="height:52%"></i><i style="height:68%"></i><i style="height:82%"></i><i style="height:74%"></i><i style="height:90%"></i></div>
-          </div>
-          <div class="video-copy">
-            <strong>Profit moment</strong>
-            <p>Fechar com resultado visual é o que mais prende clique.</p>
-          </div>
-        </div>
+      <div class="trust-grid">
+        <div class="trust"><strong>Entradas claras</strong><p>Sinais diretos para agir rápido quando a oportunidade aparece.</p></div>
+        <div class="trust"><strong>Alta probabilidade</strong><p>Fluxo focado em operações que chamam atenção pelo potencial.</p></div>
+        <div class="trust"><strong>Acesso rápido</strong><p>Escolha o plano, pague e avance para a confirmação.</p></div>
+        <div class="trust"><strong>Sem cobrança oculta</strong><p>Sem assinatura automática escondida e sem surpresa no processo.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="stats-band" id="results">
-    <div class="container">
-      <div class="stats-shell">
-        <div class="stats-copy">
-          <h2>Números grandes vendem mais rápido.</h2>
-          <p>No Brasil, a página precisa mostrar força logo de cara. Menos explicação, mais percepção de oportunidade.</p>
-        </div>
-        <div class="stat-box">
-          <small>Foco principal</small>
-          <strong>PRO</strong>
-          <span>plano central para conversão rápida</span>
-        </div>
-        <div class="stat-box">
-          <small>Fluxo visual</small>
-          <strong>SHORTS</strong>
-          <span>vídeo curto puxando o tráfego</span>
-        </div>
-        <div class="stat-box">
-          <small>Pagamento</small>
-          <strong>TXID</strong>
-          <span>confirmação manual após envio</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="plans" id="plans">
+  <section id="planos">
     <div class="container">
       <div class="section-top">
-        <h2 class="section-title">Escolha e compre.</h2>
-        <p>Mesma lógica do sistema atual: cadastro, plano, pagamento USDT TRC20 e envio do TXID para confirmação.</p>
+        <h2>Escolha seu acesso</h2>
+        <p>Entrada barata para testar, plano principal para vender, e opções mais altas para quem quer avançar.</p>
       </div>
-      <div class="plans-grid">
-        <div class="plan-card">
-          <div class="plan-badge">Starter</div>
-          <div class="plan-name">Basic</div>
-          <div class="plan-desc">Entrada mais leve para quem quer começar no sistema sem pular direto para o núcleo principal.</div>
-          <div class="price-box">
-            <small>Mensal</small>
-            <div class="price-line"><strong>29</strong><span>USDT</span></div>
-            <div class="sub-price">por mês</div>
-          </div>
-          <div class="price-box">
-            <small>Anual</small>
-            <div class="price-line"><strong>191</strong><span>USDT</span></div>
-            <div class="sub-price">12 meses em um pagamento</div>
-            <div class="save">45% off no anual</div>
-          </div>
-          <ul class="features">
-            <li>Base do fluxo TCPS</li>
-            <li>Lógica visual mais simples</li>
-            <li>Entrada inicial no sistema</li>
-            <li>E-book TCPS-A no anual</li>
-          </ul>
-          <div class="bonus">TCPS-A no anual</div>
-          <div class="plan-stack">
-            <button class="plan-btn" type="button" data-plan="basic" data-billing="monthly">BASIC MENSAL</button>
-            <button class="plan-btn secondary" type="button" data-plan="basic" data-billing="yearly">BASIC ANUAL</button>
-          </div>
-        </div>
-
-        <div class="plan-card featured">
-          <div class="plan-badge">Mais vendido</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-desc">Este é o produto principal. Visualmente é o plano que precisa ser empurrado com mais força.</div>
-          <div class="price-box">
-            <small>Mensal</small>
-            <div class="price-line"><strong>59</strong><span>USDT</span></div>
-            <div class="sub-price">por mês</div>
-          </div>
-          <div class="price-box">
-            <small>Anual</small>
-            <div class="price-line"><strong>389</strong><span>USDT</span></div>
-            <div class="sub-price">12 meses em um pagamento</div>
-            <div class="save">45% off no anual</div>
-          </div>
-          <ul class="features">
-            <li>Tudo do Basic</li>
-            <li>Fluxo principal de execução</li>
-            <li>Plano central da página</li>
-            <li>TCPS-A + TCPS-B no anual</li>
-          </ul>
-          <div class="bonus">TCPS-A + TCPS-B no anual</div>
-          <div class="plan-stack">
-            <button class="plan-btn" type="button" data-plan="pro" data-billing="monthly">PRO MENSAL</button>
-            <button class="plan-btn secondary" type="button" data-plan="pro" data-billing="yearly">PRO ANUAL</button>
-          </div>
-        </div>
-
-        <div class="plan-card">
-          <div class="plan-badge">Advanced</div>
-          <div class="plan-name">Elite</div>
-          <div class="plan-desc">Camada mais alta para quem quer mais profundidade no fluxo e não quer ficar no plano principal.</div>
-          <div class="price-box">
-            <small>Mensal</small>
-            <div class="price-line"><strong>119</strong><span>USDT</span></div>
-            <div class="sub-price">por mês</div>
-          </div>
-          <div class="price-box">
-            <small>Anual</small>
-            <div class="price-line"><strong>785</strong><span>USDT</span></div>
-            <div class="sub-price">12 meses em um pagamento</div>
-            <div class="save">45% off no anual</div>
-          </div>
-          <ul class="features">
-            <li>Tudo do Pro</li>
-            <li>Fluxo avançado</li>
-            <li>Camada mais forte de acesso</li>
-            <li>TCPS-A + TCPS-B no anual</li>
-          </ul>
-          <div class="bonus">TCPS-A + TCPS-B no anual</div>
-          <div class="plan-stack">
-            <button class="plan-btn" type="button" data-plan="elite" data-billing="monthly">ELITE MENSAL</button>
-            <button class="plan-btn secondary" type="button" data-plan="elite" data-billing="yearly">ELITE ANUAL</button>
-          </div>
-        </div>
-
-        <div class="plan-card">
-          <div class="plan-badge">One time</div>
-          <div class="plan-name">Lifetime</div>
-          <div class="plan-desc">Pacote máximo para quem quer entrar de uma vez e não renovar mensalmente.</div>
-          <div class="price-box" style="min-height:182px;display:flex;flex-direction:column;justify-content:center">
-            <small>Lifetime</small>
-            <div class="price-line"><strong>1599</strong><span>USDT</span></div>
-            <div class="sub-price">pagamento único</div>
-            <div class="save">pacote mais completo</div>
-          </div>
-          <ul class="features">
-            <li>Tudo do Elite</li>
-            <li>Atualizações futuras incluídas</li>
-            <li>Sem renovação mensal</li>
-            <li>Todos os livros incluídos</li>
-          </ul>
-          <div class="bonus">Todos os bônus incluídos</div>
-          <div class="plan-stack">
-            <button class="plan-btn" type="button" data-plan="lifetime" data-billing="lifetime">LIFETIME</button>
+      <div class="plans-shell">
+        <div class="plans-ui">
+          <div class="plan-list" id="planList"></div>
+          <div class="plan-panel">
+            <div class="panel-top">
+              <div class="panel-title">
+                <small id="panelKicker">Plano</small>
+                <h3 id="panelName">Starter</h3>
+                <p id="panelDesc">Plano de entrada para começar com valor baixo e testar o ambiente.</p>
+              </div>
+              <div class="price-tag">
+                <small>Preço</small>
+                <strong><span id="panelPrice">14</span> USDT</strong>
+                <div id="panelPriceSub" style="margin-top:8px;color:#d7e3f0;font-size:14px">Pagamento único</div>
+              </div>
+            </div>
+            <div class="panel-grid">
+              <div class="box">
+                <strong>Inclui</strong>
+                <ul id="panelFeatures"></ul>
+              </div>
+              <div class="box">
+                <strong>Ideal para</strong>
+                <ul id="panelIdeal"></ul>
+              </div>
+            </div>
+            <div class="panel-note" id="panelNote">Acesso imediato após confirmação do pagamento.</div>
+            <div class="panel-actions">
+              <button class="btn" id="panelAction" type="button">Entrar agora</button>
+              <button class="ghost" id="panelRegister" type="button">Criar conta primeiro</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="rule-box">Envie apenas o valor exato do plano escolhido. Valor errado, rede errada ou plano errado pode ser rejeitado na confirmação manual.</div>
     </div>
   </section>
 
-  <section id="buy">
+  <section id="final">
     <div class="container">
       <div class="cta-box">
-        <h2>Não perca o próximo movimento.</h2>
-        <p>Página nova, estrutura agressiva e o mesmo fluxo de cadastro + pagamento do sistema atual. Tudo separado do site antigo para você testar sem mexer no que já está rodando.</p>
-        <div class="cta-actions">
-          <a class="hero-cta" href="#plans">COMEÇAR AGORA</a>
-          <button class="ghost-btn" type="button" id="ctaRegisterBtn">CRIAR CONTA</button>
+        <h2>Pronto para entrar?</h2>
+        <p>Sem cobrança oculta. Pagamento seguro. Acesso após confirmação. Suporte direto no fluxo.</p>
+        <div class="hero-cta-row" style="justify-content:center;margin:0">
+          <a class="btn" href="#planos">Acessar sinais</a>
+          <button class="ghost" id="footerRegister" type="button">Criar conta</button>
         </div>
       </div>
     </div>
@@ -523,211 +446,270 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <div>TCPS Brasil Landing</div>
-      <div>This is not financial advice. All content is for educational purposes only.</div>
+      <div>SinalPro Brasil</div>
+      <div>Conteúdo educacional. Não é conselho financeiro.</div>
     </div>
   </footer>
 
-  <div class="payment-modal" id="paymentModal">
-    <div class="payment-card">
-      <button class="close-modal" id="closePaymentModal" type="button">×</button>
+  <div class="modal" id="paymentModal">
+    <div class="modal-card">
+      <button class="close" id="closeModal" type="button">×</button>
       <h3>Confirmar pagamento</h3>
-      <p>Usuários logados podem conferir o plano escolhido, copiar a carteira e enviar o TXID para validação.</p>
+      <p>Envie o valor exato na rede USDT TRC20 e depois informe seu TXID.</p>
       <div class="summary">
-        <div class="summary-box"><small>Plano</small><strong id="modalPlan">Pro</strong></div>
-        <div class="summary-box"><small>Cobrança</small><strong id="modalBilling">Yearly</strong></div>
-        <div class="summary-box"><small>Valor</small><strong id="modalAmount">389</strong></div>
-        <div class="summary-box"><small>Bônus</small><strong id="modalBonus">TCPS-A + TCPS-B</strong></div>
+        <div class="s"><small>Plano</small><strong id="sumPlan">Starter</strong></div>
+        <div class="s"><small>Valor</small><strong id="sumAmount">14 USDT</strong></div>
+        <div class="s"><small>Rede</small><strong>TRC20</strong></div>
+        <div class="s"><small>Conta</small><strong id="sumUser">-</strong></div>
       </div>
-      <div class="wallet-box">
+      <div class="wallet">
         <small>Carteira USDT TRC20</small>
         <div class="wallet-address" id="walletAddress">TJn4TwxxfLPhziLB6xkavnjDvaiDUNCfyJ</div>
-        <button class="copy-btn" id="copyWalletBtn" type="button">COPIAR CARTEIRA</button>
-        <div class="modal-note">Envie o valor exato. Rede errada, valor errado ou plano errado pode causar rejeição na verificação manual.</div>
+        <button class="btn" id="copyWallet" type="button">Copiar carteira</button>
+        <div class="rules">Envie apenas o valor exato do plano selecionado. Valor errado, rede errada ou plano errado pode ser rejeitado automaticamente.</div>
       </div>
-      <div class="field-box">
-        <label for="txidInput">TXID</label>
-        <input id="txidInput" type="text" placeholder="Cole seu TXID aqui" />
+      <div class="field">
+        <label for="txid">TXID</label>
+        <input id="txid" type="text" placeholder="Cole seu TXID aqui" />
       </div>
-      <button class="modal-btn primary" style="width:100%" id="confirmPaymentBtn" type="button">ENVIAR CONFIRMAÇÃO</button>
-      <div class="modal-msg" id="paymentMsg"></div>
-      <div class="modal-foot">A aprovação final acontece após a conferência do pagamento. Os bônus são liberados usando o email cadastrado.</div>
+      <div class="modal-actions">
+        <button class="btn" id="submitPayment" type="button">Enviar confirmação</button>
+        <button class="ghost" id="cancelPayment" type="button">Cancelar</button>
+      </div>
+      <div class="msg" id="modalMsg"></div>
     </div>
   </div>
 
   <script>
     const SERVER_BASE = "http://34.50.56.156:5000";
     const WALLET_ADDRESS = "TJn4TwxxfLPhziLB6xkavnjDvaiDUNCfyJ";
-    const HOME_URL = window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + "tcps-brazil-index.html";
-    const REGISTER_URL = window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + "tcps-brazil-register.html";
-    const PLAN_CONFIG = {
-      basic: {
-        name: "Basic",
-        monthly: { amountLabel: "29", amountValue: "29", billingLabel: "Mensal", bonus: "Sem bônus" },
-        yearly: { amountLabel: "191", amountValue: "191", billingLabel: "Anual", bonus: "TCPS-A" }
+    const BRAZIL_SITE = "https://lsgsg0908-png.github.io/tcps-brazil/";
+    const USER_KEY = "sinalpro_br_user_email";
+    const plans = [
+      {
+        key:"starter", label:"Starter", price:14, billing:"one-time", kicker:"Entrada", badge:"", desc:"Plano de entrada para começar com valor baixo e testar o ambiente.",
+        features:["Acesso inicial ao fluxo","Entrada barata para começar","Confirmação rápida","Sem mensalidade oculta"],
+        ideal:["Quem quer testar primeiro","Quem busca menor barreira","Entrada simples e direta"],
+        note:"Pagamento único / sem mensalidade oculta"
       },
-      pro: {
-        name: "Pro",
-        monthly: { amountLabel: "59", amountValue: "59", billingLabel: "Mensal", bonus: "Sem bônus" },
-        yearly: { amountLabel: "389", amountValue: "389", billingLabel: "Anual", bonus: "TCPS-A + TCPS-B" }
+      {
+        key:"basic", label:"Basic", price:29, billing:"monthly", kicker:"Base", badge:"", desc:"Primeiro nível para sair do teste e começar a levar o processo a sério.",
+        features:["Fluxo base de sinais","Acesso mais completo","Estrutura limpa para execução","Confirmação rápida"],
+        ideal:["Quem já quer algo acima do starter","Entrada com mais consistência","Usuário que quer subir um nível"],
+        note:"Plano inicial para começar de verdade"
       },
-      elite: {
-        name: "Elite",
-        monthly: { amountLabel: "119", amountValue: "119", billingLabel: "Mensal", bonus: "Sem bônus" },
-        yearly: { amountLabel: "785", amountValue: "785", billingLabel: "Anual", bonus: "TCPS-A + TCPS-B" }
+      {
+        key:"pro", label:"Pro", price:59, billing:"monthly", kicker:"Principal", badge:"Mais escolhido", desc:"Plano principal da página. Melhor equilíbrio entre valor percebido e conversão.",
+        features:["Fluxo principal de sinais","Melhor rota para a maioria","Estrutura focada em resultado","Acesso rápido após confirmação"],
+        ideal:["Quem quer o plano mais forte de venda","Quem busca o produto principal","Usuário pronto para avançar"],
+        note:"Plano principal para venda e destaque"
       },
-      lifetime: {
-        name: "Lifetime",
-        lifetime: { amountLabel: "1599", amountValue: "1599", billingLabel: "Lifetime", bonus: "Todos os bônus" }
+      {
+        key:"elite", label:"Elite", price:119, billing:"monthly", kicker:"Avançado", badge:"", desc:"Nível alto para quem quer escalar a percepção de valor e subir de faixa.",
+        features:["Tudo do Pro","Posicionamento premium","Estrutura de valor maior","Fluxo avançado"],
+        ideal:["Quem quer uma opção mais premium","Quem busca mais status no card","Estratégia de ticket maior"],
+        note:"Faixa premium para quem quer avançar"
+      },
+      {
+        key:"lifetime", label:"Lifetime", price:1599, billing:"lifetime", kicker:"Vitalício", badge:"", desc:"Opção máxima para quem prefere pagar uma vez e encerrar a recorrência.",
+        features:["Pagamento único","Maior ticket da página","Sem renovação mensal","Posicionamento alto"],
+        ideal:["Quem quer resolver de uma vez","Ticket alto e percepção premium","Oferta máxima"],
+        note:"Pagamento único / sem renovação"
       }
-    };
+    ];
 
-    let selectedPlanForModal = null;
+    const params = new URLSearchParams(window.location.search);
+    const memberPill = document.getElementById('memberPill');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const footerRegister = document.getElementById('footerRegister');
+    const planList = document.getElementById('planList');
+    const panelKicker = document.getElementById('panelKicker');
+    const panelName = document.getElementById('panelName');
+    const panelDesc = document.getElementById('panelDesc');
+    const panelPrice = document.getElementById('panelPrice');
+    const panelPriceSub = document.getElementById('panelPriceSub');
+    const panelFeatures = document.getElementById('panelFeatures');
+    const panelIdeal = document.getElementById('panelIdeal');
+    const panelNote = document.getElementById('panelNote');
+    const panelAction = document.getElementById('panelAction');
+    const panelRegister = document.getElementById('panelRegister');
+    const paymentModal = document.getElementById('paymentModal');
+    const closeModal = document.getElementById('closeModal');
+    const cancelPayment = document.getElementById('cancelPayment');
+    const copyWallet = document.getElementById('copyWallet');
+    const submitPayment = document.getElementById('submitPayment');
+    const txid = document.getElementById('txid');
+    const modalMsg = document.getElementById('modalMsg');
+    const sumPlan = document.getElementById('sumPlan');
+    const sumAmount = document.getElementById('sumAmount');
+    const sumUser = document.getElementById('sumUser');
+    document.getElementById('walletAddress').textContent = WALLET_ADDRESS;
 
-    function goRegister(plan, billing){
-      let url = REGISTER_URL;
-      const params = new URLSearchParams();
-      if(plan) params.set("plan", String(plan).toLowerCase());
-      if(billing) params.set("billing", String(billing).toLowerCase());
-      const query = params.toString();
-      if(query) url += "?" + query;
-      window.location.href = url;
-    }
+    let currentPlan = plans[0];
 
-    function goLogin(){
-      window.location.href = SERVER_BASE + "/login.html";
-    }
+    function getUser(){ return localStorage.getItem(USER_KEY) || ""; }
+    function setUser(email){ localStorage.setItem(USER_KEY, email); }
+    function clearUser(){ localStorage.removeItem(USER_KEY); }
 
-    function logout(){
-      localStorage.removeItem("tcps_user_email");
-      window.location.href = HOME_URL;
-    }
-
-    function applyMemberState(){
-      const savedUser = localStorage.getItem("tcps_user_email");
-      const memberLabel = document.getElementById("memberLabel");
-      const logoutBtn = document.getElementById("logoutBtn");
-      const loginBtn = document.getElementById("loginBtn");
-      const registerBtn = document.getElementById("registerBtn");
-      if(savedUser){
-        memberLabel.innerHTML = `<strong>${savedUser}</strong>`;
-        logoutBtn.classList.remove("is-hidden");
-        loginBtn.classList.add("is-hidden");
-        registerBtn.classList.add("is-hidden");
+    function updateMemberUI(){
+      const user = getUser();
+      if(user){
+        memberPill.textContent = user;
+        logoutBtn.classList.remove('hidden');
+        registerBtn.textContent = 'Conta ativa';
       }else{
-        memberLabel.textContent = "Modo Visitante";
-        logoutBtn.classList.add("is-hidden");
-        loginBtn.classList.remove("is-hidden");
-        registerBtn.classList.remove("is-hidden");
+        memberPill.textContent = 'Modo visitante';
+        logoutBtn.classList.add('hidden');
+        registerBtn.textContent = 'Criar conta';
       }
     }
 
-    function openPaymentModal(plan, billing){
-      const planKey = String(plan).toLowerCase();
-      const billingKey = String(billing).toLowerCase();
-      const config = PLAN_CONFIG[planKey] && PLAN_CONFIG[planKey][billingKey];
-      if(!config) return;
-      selectedPlanForModal = { plan: planKey, billing: billingKey, amount: config.amountValue };
-      document.getElementById("modalPlan").textContent = PLAN_CONFIG[planKey].name;
-      document.getElementById("modalBilling").textContent = config.billingLabel;
-      document.getElementById("modalAmount").textContent = config.amountLabel;
-      document.getElementById("modalBonus").textContent = config.bonus;
-      document.getElementById("walletAddress").textContent = WALLET_ADDRESS;
-      document.getElementById("txidInput").value = "";
-      document.getElementById("paymentMsg").textContent = "";
-      document.getElementById("paymentModal").classList.add("active");
-      document.body.style.overflow = "hidden";
+    function goRegister(){
+      const url = new URL(BRAZIL_SITE + 'register.html');
+      url.searchParams.set('site', 'br');
+      if(currentPlan){
+        url.searchParams.set('plan', currentPlan.key);
+        url.searchParams.set('billing', currentPlan.billing);
+      }
+      window.location.href = url.toString();
     }
 
-    function closePaymentModal(){
-      document.getElementById("paymentModal").classList.remove("active");
-      document.body.style.overflow = "";
-    }
-
-    function handlePlanClick(plan, billing){
-      const savedUser = localStorage.getItem("tcps_user_email");
-      if(savedUser){ openPaymentModal(plan, billing); return; }
-      goRegister(plan, billing);
-    }
-
-    function copyWallet(){
-      navigator.clipboard.writeText(WALLET_ADDRESS).then(() => {
-        document.getElementById("paymentMsg").textContent = "Carteira copiada.";
-      }).catch(() => {
-        document.getElementById("paymentMsg").textContent = "Falha ao copiar. Copie manualmente.";
+    function renderPlanTabs(){
+      planList.innerHTML = plans.map(plan => `
+        <button class="plan-tab ${plan.key===currentPlan.key?'active':''}" data-plan="${plan.key}" type="button">
+          <small>${plan.kicker}</small>
+          <strong>${plan.label} — ${plan.price} USDT</strong>
+          <span>${plan.desc}</span>
+          ${plan.badge ? `<div class="tab-badge">${plan.badge}</div>` : ''}
+        </button>
+      `).join('');
+      planList.querySelectorAll('.plan-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const found = plans.find(p => p.key === btn.dataset.plan);
+          if(found){ currentPlan = found; renderPlanTabs(); renderPlanPanel(); }
+        });
       });
     }
 
-    function submitPaymentConfirmation(){
-      if(!selectedPlanForModal) return;
-      const txid = document.getElementById("txidInput").value.trim();
-      const email = localStorage.getItem("tcps_user_email") || "";
-      const msg = document.getElementById("paymentMsg");
-      if(!email){ msg.textContent = "Faça login primeiro."; return; }
-      if(!txid){ msg.textContent = "Digite seu TXID."; return; }
+    function fillList(target, items){
+      target.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+    }
 
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = SERVER_BASE + "/payment-confirm";
-      form.style.display = "none";
+    function renderPlanPanel(){
+      panelKicker.textContent = currentPlan.kicker;
+      panelName.textContent = currentPlan.label;
+      panelDesc.textContent = currentPlan.desc;
+      panelPrice.textContent = currentPlan.price;
+      panelPriceSub.textContent = currentPlan.billing === 'lifetime' ? 'Pagamento único' : 'Pagamento único';
+      panelNote.textContent = currentPlan.note;
+      fillList(panelFeatures, currentPlan.features);
+      fillList(panelIdeal, currentPlan.ideal);
+      panelAction.textContent = `Entrar no ${currentPlan.label}`;
+    }
+
+    function openPayment(){
+      const user = getUser();
+      if(!user){ goRegister(); return; }
+      sumPlan.textContent = currentPlan.label;
+      sumAmount.textContent = `${currentPlan.price} USDT`;
+      sumUser.textContent = user;
+      modalMsg.textContent = '';
+      txid.value = '';
+      paymentModal.classList.add('active');
+    }
+
+    function closePayment(){ paymentModal.classList.remove('active'); }
+
+    async function copyAddress(){
+      try{
+        await navigator.clipboard.writeText(WALLET_ADDRESS);
+        modalMsg.textContent = 'Carteira copiada.';
+      }catch(_){
+        modalMsg.textContent = 'Não foi possível copiar automaticamente.';
+      }
+    }
+
+    function submitConfirmation(){
+      const email = getUser();
+      const value = txid.value.trim();
+      if(!email){ modalMsg.textContent = 'Crie uma conta primeiro.'; return; }
+      if(!value){ modalMsg.textContent = 'Informe seu TXID.'; return; }
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SERVER_BASE + '/payment-confirm';
+      form.style.display = 'none';
       const payload = {
-        email: email,
-        plan: selectedPlanForModal.plan,
-        billing: selectedPlanForModal.billing,
-        amount: selectedPlanForModal.amount,
-        txid: txid
+        email,
+        plan: currentPlan.key,
+        billing: currentPlan.billing,
+        amount: currentPlan.price,
+        txid: value
       };
-      Object.entries(payload).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
+      Object.entries(payload).forEach(([key, val]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
         input.name = key;
-        input.value = value;
+        input.value = val;
         form.appendChild(input);
       });
       document.body.appendChild(form);
       form.submit();
     }
 
-    (function(){
-      const params = new URLSearchParams(window.location.search);
-      const fromUrlUser = params.get("user");
-      if(fromUrlUser){
-        localStorage.setItem("tcps_user_email", fromUrlUser);
-        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
-        window.history.replaceState({}, "", cleanUrl);
-      }
-      applyMemberState();
-
-      document.querySelectorAll("[data-plan]").forEach((button) => {
-        button.addEventListener("click", () => handlePlanClick(button.dataset.plan, button.dataset.billing));
+    function buildDots(){
+      const slides = document.querySelectorAll('#slideTrack .slide');
+      const dots = document.getElementById('dots');
+      dots.innerHTML = '';
+      slides.forEach((_, idx) => {
+        const b = document.createElement('button');
+        if(idx===0) b.classList.add('active');
+        b.addEventListener('click', () => goSlide(idx));
+        dots.appendChild(b);
       });
+    }
 
-      document.getElementById("copyWalletBtn").addEventListener("click", copyWallet);
-      document.getElementById("confirmPaymentBtn").addEventListener("click", submitPaymentConfirmation);
-      document.getElementById("closePaymentModal").addEventListener("click", closePaymentModal);
-      document.getElementById("paymentModal").addEventListener("click", (e) => { if(e.target.id === "paymentModal") closePaymentModal(); });
-      document.getElementById("loginBtn").addEventListener("click", goLogin);
-      document.getElementById("heroLoginBtn").addEventListener("click", goLogin);
-      document.getElementById("registerBtn").addEventListener("click", () => goRegister());
-      document.getElementById("ctaRegisterBtn").addEventListener("click", () => goRegister());
-      document.getElementById("logoutBtn").addEventListener("click", logout);
+    let slideIndex = 0;
+    function goSlide(index){
+      const track = document.getElementById('slideTrack');
+      const total = track.children.length;
+      slideIndex = (index + total) % total;
+      track.style.transform = `translateX(-${slideIndex * 100}%)`;
+      [...document.querySelectorAll('#dots button')].forEach((dot, idx) => dot.classList.toggle('active', idx===slideIndex));
+    }
+    setInterval(() => {
+      const track = document.getElementById('slideTrack');
+      if(track) goSlide(slideIndex + 1);
+    }, 3500);
 
-      const shouldOpenPayment = params.get("openPayment") === "1";
-      const pendingPlan = params.get("plan");
-      const pendingBilling = params.get("billing");
-      if(shouldOpenPayment && pendingPlan && pendingBilling && localStorage.getItem("tcps_user_email")){
-        openPaymentModal(pendingPlan, pendingBilling);
-        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
-        window.history.replaceState({}, "", cleanUrl);
-      }
+    const brUser = params.get('bruser');
+    if(brUser){ setUser(brUser); }
 
-      const paymentStatus = params.get("payment");
-      if(paymentStatus === "success"){
-        setTimeout(() => { alert("Confirmação de pagamento enviada com sucesso."); }, 120);
-        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
-        window.history.replaceState({}, "", cleanUrl);
-      }
-    })();
+    updateMemberUI();
+    renderPlanTabs();
+    renderPlanPanel();
+    buildDots();
+
+    const requestedPlan = params.get('plan');
+    if(requestedPlan){
+      const found = plans.find(p => p.key === requestedPlan);
+      if(found){ currentPlan = found; renderPlanTabs(); renderPlanPanel(); }
+    }
+
+    if(params.get('openPayment') === '1' && getUser()){
+      setTimeout(openPayment, 300);
+    }
+
+    panelAction.addEventListener('click', openPayment);
+    panelRegister.addEventListener('click', goRegister);
+    registerBtn.addEventListener('click', goRegister);
+    footerRegister.addEventListener('click', goRegister);
+    logoutBtn.addEventListener('click', () => { clearUser(); updateMemberUI(); closePayment(); });
+    closeModal.addEventListener('click', closePayment);
+    cancelPayment.addEventListener('click', closePayment);
+    copyWallet.addEventListener('click', copyAddress);
+    submitPayment.addEventListener('click', submitConfirmation);
+    paymentModal.addEventListener('click', (e) => { if(e.target === paymentModal) closePayment(); });
   </script>
 </body>
 </html>
