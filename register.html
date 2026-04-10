@@ -4,30 +4,34 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SinalPro Brasil | Criar conta</title>
-<meta name="description" content="Crie sua conta no SinalPro Brasil para continuar com acesso ao fluxo." />
+<meta name="description" content="Crie sua conta no SinalPro Brasil para continuar para o pagamento." />
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07090d;--line:rgba(255,255,255,.08);--text:#f5fbff;--muted:#a8b4c8;
-  --green:#26ff9a;--blue:#00d4ff;--accent:linear-gradient(135deg,#26ff9a 0%,#00d4ff 100%);
+  --bg:#06080d; --line:rgba(255,255,255,.08); --text:#f6fbff; --muted:#a8b4c8;
+  --green:#28f5a0; --blue:#0fd4ff; --accent:linear-gradient(135deg,#28f5a0 0%,#0fd4ff 100%);
 }
 body{
-  min-height:100vh;font-family:Arial,sans-serif;color:var(--text);padding:24px;
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  font-family:Arial,sans-serif; color:var(--text);
   background:
-    radial-gradient(circle at 14% 14%, rgba(0,212,255,.14), transparent 28%),
-    radial-gradient(circle at 86% 14%, rgba(38,255,154,.10), transparent 24%),
-    linear-gradient(180deg,#07090d 0%,#05070b 100%);
-  display:flex;align-items:center;justify-content:center;
+    radial-gradient(circle at 14% 14%, rgba(15,212,255,.14), transparent 28%),
+    radial-gradient(circle at 86% 14%, rgba(40,245,160,.10), transparent 24%),
+    linear-gradient(180deg,#06080d 0%,#04060a 100%);
 }
 .card{
-  width:min(760px,100%);border-radius:30px;border:1px solid var(--line);
+  width:min(760px,100%); border-radius:32px; border:1px solid var(--line);
   background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
-  box-shadow:0 28px 70px rgba(0,0,0,.34);padding:30px;position:relative;overflow:hidden;
+  box-shadow:0 28px 70px rgba(0,0,0,.34); padding:30px; position:relative; overflow:hidden;
 }
 .card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent)}
-h1{font-size:56px;line-height:.96;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:12px}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.brand img{height:54px;width:auto;display:block}
+.brand strong{display:block;font-size:26px;line-height:1}
+.brand span{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+h1{font-size:52px;line-height:.96;letter-spacing:-1.6px;text-transform:uppercase;margin-bottom:12px}
 .sub{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:18px}
-.notice{padding:16px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#dce8f7;line-height:1.7;margin-bottom:18px}
+.notice{padding:16px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#dce8f7;line-height:1.7;margin-bottom:18px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .field{margin-bottom:14px}
 .full{grid-column:1 / -1}
@@ -37,40 +41,56 @@ input{
   background:rgba(255,255,255,.04);color:#fff;padding:0 16px;outline:none;font-size:15px;
 }
 .help{display:block;margin-top:6px;font-size:12px;color:#97abc6;line-height:1.5}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px}
 .btn{
-  min-height:56px;border:none;border-radius:999px;cursor:pointer;font-size:16px;font-weight:800;
-  display:inline-flex;align-items:center;justify-content:center;
+  min-height:56px;border:none;border-radius:999px;cursor:pointer;font-size:15px;font-weight:800;
+  display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
 }
 .btn.primary{background:var(--accent);color:#071018}
 .btn.secondary{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);color:#eef6ff}
 .msg{min-height:22px;margin-top:14px;font-size:14px;color:#bfffe0}
-.back{display:inline-block;margin-top:10px;color:#dce8f7}
-@media (max-width:760px){body{padding:16px}.card{padding:22px}h1{font-size:40px}.grid,.actions{grid-template-columns:1fr}}
+.back{display:inline-block;margin-top:10px;color:#dce8f7;text-decoration:none}
+@media (max-width:760px){
+  body{padding:16px}
+  .card{padding:22px}
+  h1{font-size:38px}
+  .grid,.actions{grid-template-columns:1fr}
+  .brand img{height:44px}
+  .brand strong{font-size:22px}
+}
 </style>
 </head>
 <body>
   <div class="card">
+    <div class="brand">
+      <img src="brand-logo.png" alt="SinalPro Brasil" />
+      <div>
+        <strong>SinalPro Brasil</strong>
+        <span>by TCPS • continuar para o pagamento</span>
+      </div>
+    </div>
+
     <h1>Criar conta</h1>
-    <div class="sub">Complete seu cadastro para continuar no SinalPro Brasil e voltar para o pagamento automaticamente.</div>
-    <div class="notice"><strong>Importante:</strong> depois do cadastro você volta para o site do Brasil e o pagamento abre automaticamente.</div>
+    <div class="sub">Complete seu cadastro para voltar ao site do Brasil e abrir o pagamento automaticamente.</div>
+    <div class="notice"><strong>Importante:</strong> TradingView ID é obrigatório. Telegram ID não é obrigatório. Depois do cadastro você volta para o Brasil e o pagamento abre automaticamente.</div>
+
     <form id="registerForm" novalidate>
       <div class="grid">
         <div class="field full">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="Digite seu email" />
+          <input id="email" name="email" type="email" placeholder="Digite seu email" autocomplete="email" />
         </div>
         <div class="field">
           <label for="password">Senha</label>
-          <input id="password" name="password" type="password" placeholder="Crie sua senha" />
+          <input id="password" name="password" type="password" placeholder="Crie sua senha" autocomplete="new-password" />
         </div>
         <div class="field">
           <label for="confirmPassword">Confirmar senha</label>
-          <input id="confirmPassword" type="password" placeholder="Confirme sua senha" />
+          <input id="confirmPassword" type="password" placeholder="Confirme sua senha" autocomplete="new-password" />
         </div>
         <div class="field">
           <label for="tradingview">TradingView ID</label>
-          <input id="tradingview" name="tradingview" type="text" placeholder="Digite seu TradingView ID" />
+          <input id="tradingview" name="tradingview" type="text" placeholder="Obrigatório" />
           <span class="help">Obrigatório. Você precisa informar seu TradingView ID.</span>
         </div>
         <div class="field">
@@ -79,12 +99,15 @@ input{
           <span class="help">Não obrigatório. Pode deixar vazio se não usar Telegram.</span>
         </div>
       </div>
+
       <div class="actions">
         <button class="btn primary" type="submit">Criar conta</button>
+        <button class="btn secondary" id="loginBtn" type="button">Login</button>
         <a class="btn secondary" href="https://lsgsg0908-png.github.io/tcps-brazil/">Voltar</a>
       </div>
       <div class="msg" id="registerMsg"></div>
     </form>
+
     <a class="back" href="https://lsgsg0908-png.github.io/tcps-brazil/">← Voltar para o início</a>
   </div>
 
@@ -97,6 +120,7 @@ const plan=params.get('plan')||'starter';
 const billing=params.get('billing')||'one-time';
 const registerForm=document.getElementById('registerForm');
 const registerMsg=document.getElementById('registerMsg');
+document.getElementById('loginBtn').addEventListener('click',()=>{window.location.href=SERVER_BASE+'/login.html';});
 
 registerForm.addEventListener('submit', async (event) => {
   event.preventDefault();
